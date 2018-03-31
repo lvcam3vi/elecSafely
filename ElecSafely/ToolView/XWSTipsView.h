@@ -20,6 +20,6 @@ typedef NS_ENUM(NSInteger, XWSShowViewType) {
  superView 当前的视图需要加载到那个父视图上
  */
 + (void)showTipViewWithType:(XWSShowViewType)type inSuperView:(UIView *)superView;
-+ (void)hideTipViewWithSuperView:(UIView *)superView;
++ (void)dismissTipViewWithSuperView:(UIView *)superView;
 
 @end

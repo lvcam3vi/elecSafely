@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface XWSFeedImageCell : UICollectionViewCell
+/*显示的图片*/
 @property (nonatomic, strong) UIImageView *imageView;
+/*删除图片按钮*/
 @property (nonatomic, strong) UIButton *close;
 
 @end

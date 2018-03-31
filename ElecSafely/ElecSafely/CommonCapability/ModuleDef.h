@@ -53,4 +53,6 @@
 #define UserAccount @"userAccount"
 #define UserPassword @"userPassword"
 
+#define XWSTipViewClickTipViewNotification @"XWSTipViewClickTipViewNotification"
+
 #endif /* ModuleDef_h */
