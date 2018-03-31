@@ -8,6 +8,7 @@
 
 #import "XWSScanViewController.h"
 #import "XWSScanView.h"
+#import "XWSScanInfoViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 #define ScanViewWidth 274.0f
@@ -193,22 +194,19 @@
         stringValue = metadataObject.stringValue;
         NSLog(@"扫描结果：%@",stringValue);
         
-        NSArray *arry = metadataObject.corners;
-        for (id temp in arry) {
-            NSLog(@"%@",temp);
-        }
-        
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"扫描结果" message:stringValue preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if (_session != nil) {
-                [_session startRunning];
-                [self startTimer];
-            }
+        //判断扫描结果是否符合数据规则，符合则可以进行下一步，反正则弹出提示
+        if (![stringValue isEqualToString:@""]) {
             
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
-        
+        }else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"数据不符合规则，请扫描正确的二维码信息" message:@"确定继续扫描二维码？" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if (_session != nil) {
+                    [_session startRunning];
+                    [self startTimer];
+                }
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     } else {
         NSLog(@"无扫描信息");
         return;
@@ -246,11 +244,14 @@
     self.lineIamgeView.frame = frame;
 }
 
-
+#pragma mark -
+- (void)gotoDetailInfoWithDic:(NSDictionary *)dic{
+    XWSScanInfoViewController *scanInfoVC = [[XWSScanInfoViewController alloc] init];
+    [self.navigationController pushViewController:scanInfoVC animated:YES];
+}
 
 - (void)dealloc{
     NSLog(@"dealloc:%s",__func__);
-    
     [self stopTimer];
 }
 

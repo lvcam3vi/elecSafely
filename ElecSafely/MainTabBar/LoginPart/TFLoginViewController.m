@@ -283,10 +283,12 @@ NSString *XPressEncryptUTF8(NSString *plainText) {
     XWSNavigationController *nv = [[XWSNavigationController alloc] initWithRootViewController:vc];
     
     [UIApplication sharedApplication].keyWindow.rootViewController = nv;
+    _loginBtn.userInteractionEnabled = YES;
 }
 
 - (void)loginProgram:(TFLoginProgram *)program DidLoginFailed:(NSString *)error {
     [ElecTipsView showTips:error];
+    _loginBtn.userInteractionEnabled = YES;
 }
 
 - (void)dealloc{
