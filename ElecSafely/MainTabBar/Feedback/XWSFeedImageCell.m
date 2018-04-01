@@ -24,7 +24,7 @@
         [_close removeFromSuperview];
         _close = [UIButton buttonWithType:UIButtonTypeCustom];
         _close.frame = CGRectMake(CGRectGetWidth(self.bounds)-20, 0, 20, 20);
-        [_close setBackgroundImage:[UIImage imageNamed:@"photo_delete"] forState:UIControlStateNormal];
+        [_close setBackgroundImage:[UIImage imageNamed:@"left_scan"] forState:UIControlStateNormal];
          [self addSubview:_close];
     }
     return self;

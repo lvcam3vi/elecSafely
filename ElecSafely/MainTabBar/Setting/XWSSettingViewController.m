@@ -16,6 +16,8 @@
 #import "XGPush.h"
 #import "TFLoginViewController.h"
 #import "XWSNavigationController.h"
+#import "XWSSettingPasswordViewController.h"
+#import "XWSAboutViewController.h"
 
 
 @interface XWSSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -61,7 +63,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 3;
+        return 2;
     }else if(section == 1){
         return 1;
     }else{
@@ -92,14 +94,12 @@
     cell.textLabel.font = SettingTitltFont;
     
     if (indexPath.section == 0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = @"账号与安全";
                 break;
             case 1:
-                cell.textLabel.text = @"隐私";
-                break;
-            case 2:
                 cell.textLabel.text = @"关于";
                 break;
             default:
@@ -111,11 +111,6 @@
         UISwitch *notiSwith = [[UISwitch alloc] init];
         [notiSwith addTarget:self action:@selector(changeNoti:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = notiSwith;
-//        [cell.contentView addSubview:notiSwith];
-//        [notiSwith mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.mas_equalTo(cell.contentView.centerY);
-//            make.right.mas_equalTo(-16);
-//        }];
 
         //根据本地存储的标识，判断是否打开
         notiSwith.on = IS_OPEN_NOTI ? YES : NO;
@@ -164,19 +159,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 0){//进入其他页面
+        UIViewController *vc = nil;
         switch (indexPath.row) {
             case 0:
-                
+            {
+                XWSSettingPasswordViewController *PwdVC = [[XWSSettingPasswordViewController alloc] init];
+                vc = PwdVC;
+            }
                 break;
             case 1:
-                
-                break;
-            case 2:
-                
+            {
+                XWSAboutViewController *aboutVC = [[XWSAboutViewController alloc] init];
+                 vc = aboutVC;
+            }
                 break;
                 
             default:
                 break;
+        }
+        if (vc != nil) {
+             [self.navigationController pushViewController:vc animated:YES];
         }
     }else if (indexPath.section == 2){//退出登录
         [self logout];
@@ -203,6 +205,7 @@
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         TFLoginViewController *loginVC = [[TFLoginViewController alloc] initWithFrame:CGRectZero];
         XWSNavigationController *navi = [[XWSNavigationController alloc] initWithRootViewController:loginVC];
+        
         [UIApplication sharedApplication].keyWindow.rootViewController = navi;
     }];
     

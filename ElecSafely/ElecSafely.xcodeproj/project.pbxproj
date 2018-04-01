@@ -101,7 +101,13 @@
 		55FEDD7A1FDF66DC005BD966 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDD691FDF66DC005BD966 /* UIProgressView+AFNetworking.m */; };
 		55FEDD7B1FDF66DC005BD966 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDD6B1FDF66DC005BD966 /* UIRefreshControl+AFNetworking.m */; };
 		55FEDD7C1FDF66DC005BD966 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDD6D1FDF66DC005BD966 /* UIWebView+AFNetworking.m */; };
+		EE250EC120705ECA0021FA80 /* LCQrcodeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE250EBF20705ECA0021FA80 /* LCQrcodeUtil.m */; };
 		EE36A37720691C2300E71A54 /* XWSFeedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE36A37620691C2300E71A54 /* XWSFeedImageCell.m */; };
+		EE47D3C1206C9A6E006FEA3C /* XWSAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3C0206C9A6E006FEA3C /* XWSAboutViewController.m */; };
+		EE47D3C4206CA46C006FEA3C /* XWSSettingPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3C3206CA46C006FEA3C /* XWSSettingPasswordViewController.m */; };
+		EE47D3C8206CA63F006FEA3C /* XWSPwdInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3C7206CA63F006FEA3C /* XWSPwdInputCell.m */; };
+		EE47D3CB206CC2FC006FEA3C /* NSString+XWSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3CA206CC2FC006FEA3C /* NSString+XWSManager.m */; };
+		EE47D3CE206CFC1D006FEA3C /* XWSScanInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3CD206CFC1D006FEA3C /* XWSScanInfoViewController.m */; };
 		EE50AEC22064A4160068FBC1 /* XWSLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE50AEC12064A4160068FBC1 /* XWSLeftView.m */; };
 		EE50AECB2064A7C40068FBC1 /* left_help@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE50AEC42064A7C40068FBC1 /* left_help@3x.png */; };
 		EE50AECC2064A7C40068FBC1 /* left_scan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE50AEC52064A7C40068FBC1 /* left_scan@3x.png */; };
@@ -121,6 +127,8 @@
 		EEB699F22068E5FF0078A3F5 /* XWSTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB699F12068E5FF0078A3F5 /* XWSTipsView.m */; };
 		EEC53B3B2063CE0E00EE3900 /* XWSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC53B3A2063CE0E00EE3900 /* XWSNavigationController.m */; };
 		EEC53B402063CFCB00EE3900 /* XWSSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC53B3F2063CFCB00EE3900 /* XWSSettingViewController.m */; };
+		EED9196B206F10A8002CF969 /* net_error.png in Resources */ = {isa = PBXBuildFile; fileRef = EED9196A206F10A8002CF969 /* net_error.png */; };
+		EED9196E206F93A4002CF969 /* XWSDeviceInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EED9196D206F93A4002CF969 /* XWSDeviceInfoCell.m */; };
 		EEF73384206532A700FFB99B /* XWSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF73383206532A700FFB99B /* XWSMainViewController.m */; };
 		EEF73387206537F500FFB99B /* XWSRightView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF73386206537F500FFB99B /* XWSRightView.m */; };
 		EEF7338F20663EC700FFB99B /* json.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF7338E20663EC700FFB99B /* json.json */; };
@@ -339,8 +347,20 @@
 		55FEDD6B1FDF66DC005BD966 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		55FEDD6C1FDF66DC005BD966 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		55FEDD6D1FDF66DC005BD966 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		EE250EBF20705ECA0021FA80 /* LCQrcodeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCQrcodeUtil.m; sourceTree = "<group>"; };
+		EE250EC020705ECA0021FA80 /* LCQRCodeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCQRCodeUtil.h; sourceTree = "<group>"; };
 		EE36A37520691C2300E71A54 /* XWSFeedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSFeedImageCell.h; sourceTree = "<group>"; };
 		EE36A37620691C2300E71A54 /* XWSFeedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSFeedImageCell.m; sourceTree = "<group>"; };
+		EE47D3BF206C9A6E006FEA3C /* XWSAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSAboutViewController.h; sourceTree = "<group>"; };
+		EE47D3C0206C9A6E006FEA3C /* XWSAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSAboutViewController.m; sourceTree = "<group>"; };
+		EE47D3C2206CA46C006FEA3C /* XWSSettingPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSSettingPasswordViewController.h; sourceTree = "<group>"; };
+		EE47D3C3206CA46C006FEA3C /* XWSSettingPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSSettingPasswordViewController.m; sourceTree = "<group>"; };
+		EE47D3C6206CA63F006FEA3C /* XWSPwdInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSPwdInputCell.h; sourceTree = "<group>"; };
+		EE47D3C7206CA63F006FEA3C /* XWSPwdInputCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSPwdInputCell.m; sourceTree = "<group>"; };
+		EE47D3C9206CC2FC006FEA3C /* NSString+XWSManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+XWSManager.h"; sourceTree = "<group>"; };
+		EE47D3CA206CC2FC006FEA3C /* NSString+XWSManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+XWSManager.m"; sourceTree = "<group>"; };
+		EE47D3CC206CFC1D006FEA3C /* XWSScanInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSScanInfoViewController.h; sourceTree = "<group>"; };
+		EE47D3CD206CFC1D006FEA3C /* XWSScanInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSScanInfoViewController.m; sourceTree = "<group>"; };
 		EE50AEC02064A4160068FBC1 /* XWSLeftView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSLeftView.h; sourceTree = "<group>"; };
 		EE50AEC12064A4160068FBC1 /* XWSLeftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSLeftView.m; sourceTree = "<group>"; };
 		EE50AEC42064A7C40068FBC1 /* left_help@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_help@3x.png"; sourceTree = "<group>"; };
@@ -371,6 +391,9 @@
 		EEC53B3A2063CE0E00EE3900 /* XWSNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSNavigationController.m; sourceTree = "<group>"; };
 		EEC53B3E2063CFCB00EE3900 /* XWSSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSSettingViewController.h; sourceTree = "<group>"; };
 		EEC53B3F2063CFCB00EE3900 /* XWSSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSSettingViewController.m; sourceTree = "<group>"; };
+		EED9196A206F10A8002CF969 /* net_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = net_error.png; sourceTree = "<group>"; };
+		EED9196C206F93A4002CF969 /* XWSDeviceInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSDeviceInfoCell.h; sourceTree = "<group>"; };
+		EED9196D206F93A4002CF969 /* XWSDeviceInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSDeviceInfoCell.m; sourceTree = "<group>"; };
 		EEF73382206532A700FFB99B /* XWSMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSMainViewController.h; sourceTree = "<group>"; };
 		EEF73383206532A700FFB99B /* XWSMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSMainViewController.m; sourceTree = "<group>"; };
 		EEF73385206537F500FFB99B /* XWSRightView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSRightView.h; sourceTree = "<group>"; };
@@ -427,6 +450,7 @@
 				553D35E3200465FF00FCC58F /* bg@3x.png */,
 				553D35E4200465FF00FCC58F /* logo@3x.png */,
 				EEB699E02068A4410078A3F5 /* scan@3x.png */,
+				EED9196A206F10A8002CF969 /* net_error.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -560,6 +584,8 @@
 		553D38442004E07D00FCC58F /* ToolView */ = {
 			isa = PBXGroup;
 			children = (
+				EE250EC020705ECA0021FA80 /* LCQRCodeUtil.h */,
+				EE250EBF20705ECA0021FA80 /* LCQrcodeUtil.m */,
 				553D38482004E0D100FCC58F /* ElecTipsView.h */,
 				553D38492004E0D100FCC58F /* ElecTipsView.m */,
 				551569B0202305BF00B80642 /* ElecHTTPManager.h */,
@@ -570,6 +596,8 @@
 				EEA2FF472067691C00E5D192 /* UIView+HGCorner.m */,
 				EEB699F02068E5FF0078A3F5 /* XWSTipsView.h */,
 				EEB699F12068E5FF0078A3F5 /* XWSTipsView.m */,
+				EE47D3C9206CC2FC006FEA3C /* NSString+XWSManager.h */,
+				EE47D3CA206CC2FC006FEA3C /* NSString+XWSManager.m */,
 			);
 			path = ToolView;
 			sourceTree = "<group>";
@@ -808,6 +836,15 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		EE47D3C5206CA624006FEA3C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE47D3C6206CA63F006FEA3C /* XWSPwdInputCell.h */,
+				EE47D3C7206CA63F006FEA3C /* XWSPwdInputCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EE50AEBD2064A3C10068FBC1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -867,6 +904,8 @@
 			children = (
 				EE50AEDB206504EA0068FBC1 /* XWSScanViewController.h */,
 				EE50AEDC206504EA0068FBC1 /* XWSScanViewController.m */,
+				EE47D3CC206CFC1D006FEA3C /* XWSScanInfoViewController.h */,
+				EE47D3CD206CFC1D006FEA3C /* XWSScanInfoViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -876,6 +915,8 @@
 			children = (
 				EE50AED8206504A90068FBC1 /* XWSScanView.h */,
 				EE50AED9206504A90068FBC1 /* XWSScanView.m */,
+				EED9196C206F93A4002CF969 /* XWSDeviceInfoCell.h */,
+				EED9196D206F93A4002CF969 /* XWSDeviceInfoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -923,8 +964,13 @@
 		EEC53B3D2063CFA800EE3900 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				EE47D3C5206CA624006FEA3C /* View */,
 				EEC53B3E2063CFCB00EE3900 /* XWSSettingViewController.h */,
 				EEC53B3F2063CFCB00EE3900 /* XWSSettingViewController.m */,
+				EE47D3C2206CA46C006FEA3C /* XWSSettingPasswordViewController.h */,
+				EE47D3C3206CA46C006FEA3C /* XWSSettingPasswordViewController.m */,
+				EE47D3BF206C9A6E006FEA3C /* XWSAboutViewController.h */,
+				EE47D3C0206C9A6E006FEA3C /* XWSAboutViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1047,6 +1093,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EED9196B206F10A8002CF969 /* net_error.png in Resources */,
 				EE50AED02064A7C40068FBC1 /* left_devices_list@3x.png in Resources */,
 				553D35E5200465FF00FCC58F /* bg@3x.png in Resources */,
 				EE50AECD2064A7C40068FBC1 /* left_setting@3x.png in Resources */,
@@ -1099,6 +1146,7 @@
 				55EF89F51FDE3148003F5061 /* ElecSafely.xcdatamodeld in Sources */,
 				55EC94921FEDFADE000D21F4 /* TFLaunchViewController.m in Sources */,
 				55156A18202312AC00B80642 /* DGActivityIndicatorLineScalePartyAnimation.m in Sources */,
+				EE47D3C4206CA46C006FEA3C /* XWSSettingPasswordViewController.m in Sources */,
 				553D38632004E47300FCC58F /* GTMBase64.m in Sources */,
 				55156A0A202312AC00B80642 /* DGActivityIndicatorBallPulseSyncAnimation.m in Sources */,
 				55FEDD6E1FDF66DC005BD966 /* AFHTTPSessionManager.m in Sources */,
@@ -1122,6 +1170,7 @@
 				55E1E8161FF5D9CD00964CFB /* Contans.m in Sources */,
 				55EC94961FEDFD83000D21F4 /* TFLoginViewController.m in Sources */,
 				EEB699F22068E5FF0078A3F5 /* XWSTipsView.m in Sources */,
+				EED9196E206F93A4002CF969 /* XWSDeviceInfoCell.m in Sources */,
 				55156A1D202312AC00B80642 /* DGActivityIndicatorRotatingSquaresAnimation.m in Sources */,
 				EE50AEDA206504A90068FBC1 /* XWSScanView.m in Sources */,
 				55156A08202312AC00B80642 /* DGActivityIndicatorBallGridPulseAnimation.m in Sources */,
@@ -1158,15 +1207,19 @@
 				55FEDD781FDF66DC005BD966 /* UIButton+AFNetworking.m in Sources */,
 				55E1E8151FF5D9CD00964CFB /* TileView.m in Sources */,
 				553D38682004E47300FCC58F /* RSA.m in Sources */,
+				EE47D3CB206CC2FC006FEA3C /* NSString+XWSManager.m in Sources */,
 				55FEDD7B1FDF66DC005BD966 /* UIRefreshControl+AFNetworking.m in Sources */,
+				EE47D3C1206C9A6E006FEA3C /* XWSAboutViewController.m in Sources */,
 				55156A19202312AC00B80642 /* DGActivityIndicatorLineScalePulseOutAnimation.m in Sources */,
 				EEB699E52068AFF70078A3F5 /* XWSHelpViewController.m in Sources */,
 				55156A0B202312AC00B80642 /* DGActivityIndicatorBallRotateAnimation.m in Sources */,
 				551569B2202305BF00B80642 /* ElecHTTPManager.m in Sources */,
 				55156A1C202312AC00B80642 /* DGActivityIndicatorRotatingSandglassAnimation.m in Sources */,
+				EE250EC120705ECA0021FA80 /* LCQrcodeUtil.m in Sources */,
 				55FEDD7C1FDF66DC005BD966 /* UIWebView+AFNetworking.m in Sources */,
 				55156A16202312AC00B80642 /* DGActivityIndicatorFiveDotsAnimation.m in Sources */,
 				55156A0F202312AC00B80642 /* DGActivityIndicatorBallScaleRippleMultipleAnimation.m in Sources */,
+				EE47D3CE206CFC1D006FEA3C /* XWSScanInfoViewController.m in Sources */,
 				EE50AEDD206504EA0068FBC1 /* XWSScanViewController.m in Sources */,
 				55156A12202312AC00B80642 /* DGActivityIndicatorBallZigZagAnimation.m in Sources */,
 				55156A1A202312AC00B80642 /* DGActivityIndicatorLineScalePulseOutRapidAnimation.m in Sources */,
@@ -1179,6 +1232,7 @@
 				553D383D2004716500FCC58F /* ViewController+MASAdditions.m in Sources */,
 				553D38692004E47300FCC58F /* AESCrypt.m in Sources */,
 				55FEDD751FDF66DC005BD966 /* AFImageDownloader.m in Sources */,
+				EE47D3C8206CA63F006FEA3C /* XWSPwdInputCell.m in Sources */,
 				55156A13202312AC00B80642 /* DGActivityIndicatorBallZigZagDeflectAnimation.m in Sources */,
 				EEB699E82068C6000078A3F5 /* XWSDetailHelpViewController.m in Sources */,
 			);

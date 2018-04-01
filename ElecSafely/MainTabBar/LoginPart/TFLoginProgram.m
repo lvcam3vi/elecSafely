@@ -9,6 +9,7 @@
 #import "TFLoginProgram.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "XGPush.h"
+#import "NSString+XWSManager.h"
 
 @interface TFLoginProgram ()<XGPushTokenManagerDelegate>
 
@@ -31,7 +32,9 @@ static TFLoginProgram *loginProgram = nil;
 - (void)userLoginWithAccount:(NSString *)account passWord:(NSString *)password {
 //    account = @"demo";
 //    password = @"88888888";
-    password = [self md5:password];
+    password = [NSString md5:password];
+    
+    NSLog(@"password:%@",password);
     if (account.length > 0 && password.length > 0) {
 
         [_requestManager POST:FrigateAPI_Login_Check parameters:@{@"name":account,@"pwd":password} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

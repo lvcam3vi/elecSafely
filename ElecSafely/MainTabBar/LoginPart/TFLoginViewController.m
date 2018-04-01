@@ -22,10 +22,17 @@
 @property (nonatomic, strong) UITextField *userNameTF;
 @property (nonatomic, strong) UITextField *passWordTF;
 @property (nonatomic, strong) UIView *loginSquare;
-
+@property (nonatomic, strong) ElecProgressHUD *progressHUD;
 @end
 
 @implementation TFLoginViewController
+
+- (ElecProgressHUD *)progressHUD{
+    if (!_progressHUD) {
+         _progressHUD = [[ElecProgressHUD alloc] init];
+    }
+    return _progressHUD;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     [self initUI];
@@ -45,11 +52,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldDidChange) name:UITextFieldTextDidChangeNotification object:nil];
-//    ElecProgressHUD *a = [[ElecProgressHUD alloc] init];
-//
-//    [a showHUD:self.view Offset:0 animation:18];
-    
-
 }
 
 - (void)initUI {
@@ -271,6 +273,11 @@ NSString *XPressEncryptUTF8(NSString *plainText) {
         [[NSUserDefaults standardUserDefaults] setObject:nameStr forKey:UserAccount];//存贮账号1
         [[NSUserDefaults standardUserDefaults] setObject:XPressEncryptUTF8(passWordStr) forKey:UserPassword];
         [[NSUserDefaults standardUserDefaults] synchronize];
+
+        [_progressHUD showHUD:self.view Offset:0 animation:18];
+        
+        NSLog(@"passWordStr:%@ %ld",passWordStr,passWordStr.length);
+        
         [[TFLoginProgram sharedInstance] userLoginWithAccount:nameStr passWord:passWordStr];
         [TFLoginProgram sharedInstance].delegate = self;
     }
@@ -279,14 +286,17 @@ NSString *XPressEncryptUTF8(NSString *plainText) {
 #pragma mark loginProgramDelegate
 - (void)loginProgram:(TFLoginProgram *)program DidLoginSuccess:(NSString *)account passWord:(NSString *)password {
     [ElecTipsView showTips:@"登陆成功"];
+    [_progressHUD dismiss];
     XWSMainViewController *vc = [[XWSMainViewController alloc] init];
     XWSNavigationController *nv = [[XWSNavigationController alloc] initWithRootViewController:vc];
     
     [UIApplication sharedApplication].keyWindow.rootViewController = nv;
+    _loginBtn.userInteractionEnabled = YES;
 }
 
 - (void)loginProgram:(TFLoginProgram *)program DidLoginFailed:(NSString *)error {
     [ElecTipsView showTips:error];
+    _loginBtn.userInteractionEnabled = YES;
 }
 
 - (void)dealloc{

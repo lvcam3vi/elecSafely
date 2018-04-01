@@ -148,6 +148,8 @@
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _sureBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _sureBtn.titleLabel.font = PingFangMedium(15);
         _sureBtn.tag = SureBtnTag;
         [_sureBtn addTarget:self action:@selector(clickCloseBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
