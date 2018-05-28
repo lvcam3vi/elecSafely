@@ -149,6 +149,7 @@
 		EEF73384206532A700FFB99B /* XWSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF73383206532A700FFB99B /* XWSMainViewController.m */; };
 		EEFB698120862BBC0060C076 /* add-img.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFB698020862BBC0060C076 /* add-img.png */; };
 		EF112779207E5A41006A3709 /* XWSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF112778207E5A41006A3709 /* XWSBaseModel.m */; };
+		EF1BEAA320BB016100EE52F3 /* XWSFliterResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1BEAA220BB016100EE52F3 /* XWSFliterResultView.m */; };
 		EF45C02B207770ED0074990E /* ESBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF45C026207770ED0074990E /* ESBaseNavigationController.m */; };
 		EF45C02C207770ED0074990E /* ESBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF45C028207770ED0074990E /* ESBaseTabBarController.m */; };
 		EF45C02D207770ED0074990E /* ESBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF45C02A207770ED0074990E /* ESBaseViewController.m */; };
@@ -514,6 +515,8 @@
 		EEFB698020862BBC0060C076 /* add-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-img.png"; sourceTree = "<group>"; };
 		EF112777207E5A41006A3709 /* XWSBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSBaseModel.h; sourceTree = "<group>"; };
 		EF112778207E5A41006A3709 /* XWSBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSBaseModel.m; sourceTree = "<group>"; };
+		EF1BEAA120BB016100EE52F3 /* XWSFliterResultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSFliterResultView.h; sourceTree = "<group>"; };
+		EF1BEAA220BB016100EE52F3 /* XWSFliterResultView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSFliterResultView.m; sourceTree = "<group>"; };
 		EF45C025207770ED0074990E /* ESBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBaseNavigationController.h; sourceTree = "<group>"; };
 		EF45C026207770ED0074990E /* ESBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESBaseNavigationController.m; sourceTree = "<group>"; };
 		EF45C027207770ED0074990E /* ESBaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBaseTabBarController.h; sourceTree = "<group>"; };
@@ -1564,6 +1567,8 @@
 				EF45C0C12077B2190074990E /* XWSFliterDataAdapter.m */,
 				EF45C0C32077BFC10074990E /* XWSFliterConditionModel.h */,
 				EF45C0C42077BFC10074990E /* XWSFliterConditionModel.m */,
+				EF1BEAA120BB016100EE52F3 /* XWSFliterResultView.h */,
+				EF1BEAA220BB016100EE52F3 /* XWSFliterResultView.m */,
 			);
 			path = Fliter;
 			sourceTree = "<group>";
@@ -1990,6 +1995,7 @@
 				55156A16202312AC00B80642 /* DGActivityIndicatorFiveDotsAnimation.m in Sources */,
 				EFED1AE2208523A600179276 /* MJRefreshGifHeader.m in Sources */,
 				EFED1AE1208523A600179276 /* MJRefreshBackStateFooter.m in Sources */,
+				EF1BEAA320BB016100EE52F3 /* XWSFliterResultView.m in Sources */,
 				EE2F2146208CD3E700BB540D /* LMJScrollTextView.m in Sources */,
 				EFED1AEA208523A600179276 /* UIView+MJExtension.m in Sources */,
 				55156A0F202312AC00B80642 /* DGActivityIndicatorBallScaleRippleMultipleAnimation.m in Sources */,
