@@ -24,11 +24,11 @@ UIKIT_EXTERN NSString *const KeyAlarmDateScope;
 /*既是key又是name*/
 @property (nonatomic, copy) NSString *leftKeyName;
 
-/* 1、被选中的客户ID（用于当前筛选条件，当前对象是客户名称）  */
+/* 1、被选中的客户ID（用于当前筛选条件，当前对象是作为客户名称）  */
 @property (nonatomic, copy) NSString *customerID;
 
 
-/* 1、被选中的客户分组ID（用于当前筛选条件，当前对象是客户分组）*/
+/* 1、被选中的客户分组ID（用于当前筛选条件，当前对象是作为客户分组）*/
 @property (nonatomic, copy) NSString *groupID;
 
 
@@ -52,10 +52,10 @@ UIKIT_EXTERN NSString *const KeyAlarmDateScope;
 @property (nonatomic, strong) NSString *alarmType;
 
 
-/*被选中的设备ID (当前对象是设备类型）*/
+/*被选中的设备ID (当前对象是作为设备类型）*/
 @property (nonatomic, copy) NSString *deviceID;
 
-/*被选中的日期 (当前对象是日期范围）*/
+/*被选中的日期 (当前对象是作为日期范围）*/
 @property (nonatomic, copy) NSString *startDate;/// yyyy-MM-dd
 @property (nonatomic, copy) NSString *endDate;
 
