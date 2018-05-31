@@ -9,12 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "XWSFliterConditionModel.h"
 
-typedef NS_ENUM(NSUInteger, FliterEnterType) {
-    DevicesMonitoring,  ///设备列表
-    AlarmLog, ///警报
-    Statistic ///统计
-};
-
 @class XWSFliterDataAdapter;
 
 @protocol XWSFliterDataAdapterDelegate <NSObject>

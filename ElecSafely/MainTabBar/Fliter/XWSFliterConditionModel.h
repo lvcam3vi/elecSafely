@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "XWSDeviceListModel.h"
 
+typedef NS_ENUM(NSUInteger, FliterEnterType) {
+    DevicesMonitoring,  ///设备列表
+    AlarmLog, ///警报
+    Statistic ///统计
+};
+
 UIKIT_EXTERN NSString *const KeyCustomerName;
 UIKIT_EXTERN NSString *const KeyCustomerGroup;
 UIKIT_EXTERN NSString *const KeyDeviceStatus;

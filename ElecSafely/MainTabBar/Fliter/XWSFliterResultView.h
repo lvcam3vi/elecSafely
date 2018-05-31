@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class XWSFliterConditionModel;
+#import "XWSFliterConditionModel.h"
 
 @interface XWSFliterResultView : UIView
 
-- (void)adjustHeight:(UITableView *)tableView dataSource:(NSArray<XWSFliterConditionModel*> *)conditionModels;
+- (void)adjustHeight:(UITableView *)tableView dataSource:(NSArray<XWSFliterConditionModel*> *)conditionModels type:(FliterEnterType)type;
 
 @end

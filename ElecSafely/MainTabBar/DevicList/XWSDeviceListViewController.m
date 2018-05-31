@@ -80,7 +80,7 @@
 #pragma mark - XWSFliterViewDelegate
 - (void)clickFliterView:(XWSFliterView *)fliterView dataSource:(NSDictionary *)dataSource{
     if (_dataSource.count == 0) [self.tableView reloadData];
-    [self.headView adjustHeight:self.tableView dataSource:fliterView.dataAdapter.leftArr];//顶部筛选
+    [self.headView adjustHeight:self.tableView dataSource:fliterView.dataAdapter.leftArr type:fliterView.dataAdapter.fliterType];//顶部筛选
     [self processData:dataSource];
 }
 - (void)showHudView{

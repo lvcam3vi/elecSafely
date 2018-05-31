@@ -7,24 +7,23 @@
 //
 
 #import "XWSFliterResultView.h"
-#import "XWSFliterConditionModel.h"
 #import "UILabel+Create.h"
 
 static const CGFloat rowHeight = 40.f;
 
 @implementation XWSFliterResultView
 
-- (void)adjustHeight:(UITableView *)tableView dataSource:(NSArray<XWSFliterConditionModel*> *)conditionModels{
+- (void)adjustHeight:(UITableView *)tableView dataSource:(NSArray<XWSFliterConditionModel*> *)conditionModels type:(FliterEnterType)type{
     self.backgroundColor = [UIColor colorWithRed:0.16 green:0.17 blue:0.24 alpha:1.00];
     CGFloat height = ((conditionModels.count - 1)/2 + 1) * rowHeight;
     self.height_ES = height;
     tableView.tableHeaderView = self;
     
-    [self reloadUI:conditionModels];
+    [self reloadUI:conditionModels type:type];
 }
 
 
-- (void)reloadUI:(NSArray<XWSFliterConditionModel*> *)conditionModels{
+- (void)reloadUI:(NSArray<XWSFliterConditionModel*> *)conditionModels type:(FliterEnterType)type{
     
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
@@ -43,7 +42,11 @@ static const CGFloat rowHeight = 40.f;
         CGFloat width = [label sizeThatFits:CGSizeMake(MAXFLOAT, label.height_ES)].width;
         label.width_ES = width;
         
-        UILabel *tapLabel = [UILabel createWithFrame:CGRectMake(label.right_ES + margin, label.top_ES, (self.width_ES/2) - margin*3 - label.width_ES, label.height_ES) text:[self getNameWithModel:model] textColor:[UIColor colorWithRed:0.84 green:0.85 blue:0.87 alpha:1.00] textAlignment:0 fontNumber:15];
+        CGFloat rightWidth = (self.width_ES/2) - margin*3 - label.width_ES;
+        if ((i == conditionModels.count - 1) && (conditionModels.count%2 == 1)) {
+            rightWidth = self.width_ES - margin*3 - label.width_ES;
+        }
+        UILabel *tapLabel = [UILabel createWithFrame:CGRectMake(label.right_ES + margin, label.top_ES, rightWidth, label.height_ES) text:[self getNameWithModel:model] textColor:[UIColor colorWithRed:0.84 green:0.85 blue:0.87 alpha:1.00] textAlignment:0 fontNumber:15];
         [self addSubview:tapLabel];
     }
 }
@@ -71,7 +74,7 @@ static const CGFloat rowHeight = 40.f;
         return model.alarmArr[model.selectRightRow];
     }else if ([model.leftKeyName isEqualToString:KeyAlarmDateScope]) {
         
-        return [NSString stringWithFormat:@"%@/n%@",model.startDate,model.endDate];
+        return [NSString stringWithFormat:@"%@ ~ %@",model.startDate,model.endDate];
     }else {
         return @"";
     }

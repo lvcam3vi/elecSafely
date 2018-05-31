@@ -11,6 +11,7 @@
 #import "ESDeviceViewController.h"
 #import "XWSFliterView.h"
 #import "MJRefresh.h"
+#import "XWSFliterResultView.h"
 
 static const CGFloat SectionHeight = 40.f;
 
@@ -25,7 +26,7 @@ static const CGFloat SectionHeight = 40.f;
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) XWSFliterView *fliterView;
 @property (nonatomic, strong) ElecProgressHUD *progressHUD;
-
+@property (nonatomic, strong) XWSFliterResultView *headView;
 @end
 
 @implementation XWSAlarmViewController
@@ -78,6 +79,8 @@ static const CGFloat SectionHeight = 40.f;
 
 #pragma mark - XWSFliterViewDelegate
 - (void)clickFliterView:(XWSFliterView *)fliterView dataSource:(NSDictionary *)dataSource{
+    if (_dataSource.count == 0) [self.tableView reloadData];
+    [self.headView adjustHeight:self.tableView dataSource:fliterView.dataAdapter.leftArr type:fliterView.dataAdapter.fliterType];//顶部筛选
     [self processData:dataSource];
 }
 - (void)showHudView{
@@ -157,6 +160,8 @@ static const CGFloat SectionHeight = 40.f;
         _tableView.backgroundColor = CURRENT_VC_BACKCOLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(pullUpLoadMore)];
+        self.headView = [[XWSFliterResultView alloc] initWithFrame:CGRectMake(0, 0, _tableView.width_ES, 0)];
+        _tableView.tableHeaderView = self.headView;
     }
     
     return _tableView;
