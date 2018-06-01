@@ -17,7 +17,7 @@ static const CGFloat SectionHeight = 40.f;
 
 #define CURRENT_VC_BACKCOLOR [UIColor colorWithRed:0.12 green:0.14 blue:0.20 alpha:1.00]
 
-@interface XWSAlarmViewController ()<UITableViewDelegate, UITableViewDataSource, XWSFliterViewDelegate>
+@interface XWSAlarmViewController ()<UITableViewDelegate, UITableViewDataSource, XWSFliterViewDelegate, XWSFliterResultViewDelegate>
 {
     NSMutableArray *_dataSource;
     ElecHTTPManager *_httpManager;
@@ -75,6 +75,11 @@ static const CGFloat SectionHeight = 40.f;
 
 - (void)showFliterView{
     [_fliterView show];
+}
+
+#pragma mark -XWSFliterResultViewDelegate
+- (void)fliterResultViewClickWith:(NSInteger)tag{
+    [_fliterView showWithLeftRow:tag];
 }
 
 #pragma mark - XWSFliterViewDelegate
@@ -162,6 +167,7 @@ static const CGFloat SectionHeight = 40.f;
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(pullUpLoadMore)];
         self.headView = [[XWSFliterResultView alloc] initWithFrame:CGRectMake(0, 0, _tableView.width_ES, 0)];
         _tableView.tableHeaderView = self.headView;
+        self.headView.delegate = self;
     }
     
     return _tableView;

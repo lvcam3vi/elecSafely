@@ -29,7 +29,7 @@ static const CGFloat MarginLength = 10.f;
     CGFloat width = ScreenWidth - 2*MarginLength;
     _whiteBackV = [[UIView alloc] initWithFrame:CGRectMake(MarginLength, MarginLength, width, width)];
     [self.view addSubview:_whiteBackV];
-    _whiteBackV.backgroundColor = [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1.00];
+    _whiteBackV.backgroundColor = [UIColor colorWithRed:0.16 green:0.17 blue:0.24 alpha:1.00];
     
     NSArray *sources = @[@"设备ID",@"设备名称",@"所属客户",@"所属分组",@"设备位置"];
     [self setUpSubviews:sources];
@@ -42,7 +42,7 @@ static const CGFloat MarginLength = 10.f;
     CGFloat titleWidth = 85;
     CGFloat height = 40;
     UIColor *titleColor = [UIColor colorWithRed:0.70 green:0.71 blue:0.71 alpha:1.00];
-    UIColor *contentColor = [UIColor colorWithRed:0.31 green:0.32 blue:0.33 alpha:1.00];
+    UIColor *contentColor = [UIColor colorWithRed:0.84 green:0.85 blue:0.87 alpha:1.00];
     for (int i = 0; i < sources.count; ++i) {
         
         UILabel *titlela = [UILabel createWithFrame:CGRectMake(leftMargin, leftMargin + i*height, titleWidth, height) text:sources[i] textColor:titleColor textAlignment:0 fontNumber:17];

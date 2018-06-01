@@ -48,6 +48,10 @@ static const CGFloat rowHeight = 40.f;
         }
         UILabel *tapLabel = [UILabel createWithFrame:CGRectMake(label.right_ES + margin, label.top_ES, rightWidth, label.height_ES) text:[self getNameWithModel:model] textColor:[UIColor colorWithRed:0.84 green:0.85 blue:0.87 alpha:1.00] textAlignment:0 fontNumber:15];
         [self addSubview:tapLabel];
+        tapLabel.tag = i;
+        tapLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        [tapLabel addGestureRecognizer:tapGes];
     }
 }
 
@@ -78,6 +82,16 @@ static const CGFloat rowHeight = 40.f;
     }else {
         return @"";
     }
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)tapSender{
+    
+    NSInteger tag = tapSender.view.tag;
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(fliterResultViewClickWith:)]) {
+        [_delegate fliterResultViewClickWith:tag];
+    }
+    
 }
 
 

@@ -34,4 +34,7 @@
 - (void)show;
 - (void)dismiss;
 
+/*show 扩展方法*/
+- (void)showWithLeftRow:(NSInteger)row;
+
 @end

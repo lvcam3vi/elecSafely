@@ -718,6 +718,17 @@
 }
 
 #pragma mark - Show and Dismiss
+
+- (void)showWithLeftRow:(NSInteger)row{
+    
+    if ([self.leftTableView numberOfRowsInSection:0] > row) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        [self tableView:self.leftTableView didSelectRowAtIndexPath:indexPath];
+    }
+    
+    [self show];
+}
+
 - (void)show{
     
     self.hidden = NO;

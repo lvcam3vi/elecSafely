@@ -17,7 +17,7 @@
 
 #define CURRENT_VC_BACKCOLOR [UIColor colorWithRed:0.12 green:0.14 blue:0.20 alpha:1.00]
 
-@interface XWSDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, XWSFliterViewDelegate>
+@interface XWSDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, XWSFliterViewDelegate, XWSFliterResultViewDelegate>
 {
     NSMutableArray *_dataSource;
     ElecHTTPManager *_httpManager;
@@ -75,6 +75,11 @@
 
 - (void)showFliterView{
     [_fliterView show];
+}
+
+#pragma mark -XWSFliterResultViewDelegate
+- (void)fliterResultViewClickWith:(NSInteger)tag{
+    [_fliterView showWithLeftRow:tag];
 }
 
 #pragma mark - XWSFliterViewDelegate
@@ -161,6 +166,7 @@
         
         self.headView = [[XWSFliterResultView alloc] initWithFrame:CGRectMake(0, 0, _tableView.width_ES, 0)];
         _tableView.tableHeaderView = self.headView;
+        self.headView.delegate = self;
     }
     
     return _tableView;

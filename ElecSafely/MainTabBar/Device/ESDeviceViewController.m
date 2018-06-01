@@ -21,7 +21,9 @@
 @property (nonatomic,strong)ESDeviceDataProcessor *dataProcessor;
 @property (nonatomic,strong)ESDeviceData *deviceData;
 @property (nonatomic,strong)NSArray *chartData;
-@property (nonatomic, strong) ElecProgressHUD *progressHUD;
+@property (nonatomic,strong) ElecProgressHUD *progressHUD;
+
+@property (nonatomic,assign) BOOL isRequesting;
 
 @end
 
