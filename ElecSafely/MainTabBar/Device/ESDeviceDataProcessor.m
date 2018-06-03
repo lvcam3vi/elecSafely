@@ -94,7 +94,9 @@
             success(YES);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        if (success) {
+            success(NO);
+        }
         [ElecTipsView showTips:@"查询失败"];
     }];
 }
@@ -109,6 +111,9 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [ElecTipsView showTips:@"复位失败"];
+        if (success) {
+            success(NO);
+        }
     }];
 }
 

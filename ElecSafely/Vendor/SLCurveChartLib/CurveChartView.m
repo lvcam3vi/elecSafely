@@ -14,7 +14,7 @@
 #import "YRightAxisFormtter.h"
 #import "HighLightFormatter.h"
 
-const CGFloat CurveChartTotalH = 220.0;//CurveChartH + BottomMargin + TopTextHeight
+const CGFloat CurveChartTotalH = 240.0;//CurveChartH + BottomMargin + TopTextHeight + 20
 
 static const CGFloat CurveChartH = 150.0;
 static const CGFloat BottomMargin = 20.0;
@@ -29,7 +29,7 @@ static const CGFloat LeftMargin = 15.0;
 {
     int _yMax;
 }
-@property (strong, nonatomic) BaseCurveView *myView;
+@property (strong, nonatomic) BaseCurveView *curveView;
 @property (nonatomic, strong) SLLineChartData* dataSource;
 @property (nonatomic, strong) SLGCDTimer timer;
 @property (nonatomic, strong) HighLightFormatter *highLightFor;
@@ -91,11 +91,11 @@ static const CGFloat LeftMargin = 15.0;
         self.backgroundColor = [UIColor colorWithRed:0.10 green:0.10 blue:0.15 alpha:1.00];
         _yMax = 0;
         
-        self.myView = [[BaseCurveView alloc] initWithFrame:CGRectMake(LeftMargin, TopTextHeight, self.width_ES - 2*LeftMargin, CurveChartH)];
-        [self addSubview:self.myView];
+        self.curveView = [[BaseCurveView alloc] initWithFrame:CGRectMake(LeftMargin, TopTextHeight, self.width_ES - 2*LeftMargin, CurveChartH)];
+        [self addSubview:self.curveView];
         [self bringSubviewToFront:self.unitLabel];
         
-        ChartAxisBase* xAxis = self.myView.XAxis;
+        ChartAxisBase* xAxis = self.curveView.XAxis;
         xAxis.axisValueFormatter = [[XAxisFormtter alloc] init];
         xAxis.drawLabelsEnabled = YES;
         xAxis.drawAxisLineEnabled = NO;
@@ -113,7 +113,7 @@ static const CGFloat LeftMargin = 15.0;
         }
         xAxis.xAxisShowData = dateArr;
         
-        ChartAxisBase* leftYAxis = self.myView.leftYAxis;
+        ChartAxisBase* leftYAxis = self.curveView.leftYAxis;
         leftYAxis.axisValueFormatter = [[YAxisFormtter alloc] init];
         leftYAxis.drawLabelsEnabled = YES;
         leftYAxis.drawAxisLineEnabled = NO;
@@ -125,7 +125,7 @@ static const CGFloat LeftMargin = 15.0;
         leftYAxis.gridColor = [UIColor colorWithColor:Line_COLOR andalpha:0.5];
         leftYAxis.enabled = YES;
         
-        //    ChartAxisBase* rightYAxis = self.myView.rightYAxis;
+        //    ChartAxisBase* rightYAxis = self.curveView.rightYAxis;
         //    rightYAxis.axisValueFormatter = [[YRightAxisFormtter alloc] init];
         //    rightYAxis.drawLabelsEnabled = YES;
         //    rightYAxis.drawAxisLineEnabled = YES;
@@ -143,7 +143,7 @@ static const CGFloat LeftMargin = 15.0;
         //    highLight.enabled = YES;
         //    self.highLightFor = [[HighLightFormatter alloc] init];
         //    highLight.delegate = self.highLightFor;
-        //    self.myView.hightLight = highLight;
+        //    self.curveView.hightLight = highLight;
         
         [self setCurveChartData:curveChartData];
     }
@@ -154,13 +154,16 @@ static const CGFloat LeftMargin = 15.0;
 /*曲线数据初始化*/
 - (void)setUpChartData:(NSDictionary *)chartData{
     
-    NSArray *colorArr = @[[UIColor greenColor],[UIColor yellowColor],[UIColor blueColor],[UIColor cyanColor],[UIColor orangeColor],[UIColor purpleColor]];
-    NSMutableArray* valuesArray = [NSMutableArray arrayWithCapacity:1];
-
+    NSArray *colorArr = @[[UIColor greenColor],[UIColor yellowColor],[UIColor blueColor],[UIColor cyanColor],[UIColor orangeColor],[UIColor purpleColor]];//线路颜色
+    NSMutableArray *valuesArray = [NSMutableArray arrayWithCapacity:1];//表格
+    NSMutableArray *bottomLoops = [NSMutableArray arrayWithCapacity:3];//底部回路名称和颜色
     NSArray *CurrLoop = chartData[@"CurrLoop"];
     for (int i = 0; i < CurrLoop.count; i++) {
         
         UIColor *color = colorArr[i % colorArr.count];
+        
+        NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]]};
+        [bottomLoops addObject:loopNameColor];//底部
         
         NSMutableArray *tempArr = [self tempArray:chartData loopNum:CurrLoop[i]];
         
@@ -193,14 +196,14 @@ static const CGFloat LeftMargin = 15.0;
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
-    [self.myView setScaleXEnabled:@(NO)];
-    [self.myView setDynamicYAixs:@(NO)];
-    [self.myView setBaseYValueFromZero:@(YES)];
+    [self.curveView setScaleXEnabled:@(NO)];
+    [self.curveView setDynamicYAixs:@(NO)];
+    [self.curveView setBaseYValueFromZero:@(YES)];
     
 //        //设置的时候务必保证  VisibleXRangeDefaultmum 落在 VisibleXRangeMinimum 和 VisibleXRangeMaximum 否则将导致缩放功能不可用
-//    [self.myView setVisibleXRangeMaximum:@(50)];
-//    [self.myView setVisibleXRangeMinimum:@(2)];
-//    [self.myView setVisibleXRangeDefaultmum:@(10)];
+//    [self.curveView setVisibleXRangeMaximum:@(50)];
+//    [self.curveView setVisibleXRangeMinimum:@(2)];
+//    [self.curveView setVisibleXRangeDefaultmum:@(10)];
     
         //增加选配的基准线
         //        ChartBaseLine* lineMax = [[ChartBaseLine alloc] init];
@@ -214,13 +217,16 @@ static const CGFloat LeftMargin = 15.0;
         //        lineMin.lineColor = [UIColor purpleColor];
         //        lineMin.lineMode = ChartBaseLineStraightMode;
         //        lineMin.yValue = 10;
-        //        [self.myView addYBaseLineWith:lineMax];
-        //        [self.myView addYBaseLineWith:lineMin];
+        //        [self.curveView addYBaseLineWith:lineMax];
+        //        [self.curveView addYBaseLineWith:lineMin];
     
-    [self.myView setPageScrollerEnable:@(NO)];
+    [self.curveView setPageScrollerEnable:@(NO)];
     
         //直接调用Set方法和refreashDataSourceRestoreContext 和该方法等效
-    [self.myView refreashDataSourceRestoreContext:self.dataSource];
+    [self.curveView refreashDataSourceRestoreContext:self.dataSource];
+    
+    /*底部回路颜色提示和名字*/
+    [self createBottomTipView:bottomLoops];
 }
 
 
@@ -255,6 +261,35 @@ static const CGFloat LeftMargin = 15.0;
     
     return tempArray;
 }
+
+/*底部*/
+- (void)createBottomTipView:(NSArray *)loops{
+    
+    CGFloat xOffset = 2*LeftMargin;
+    UIView *lastView = nil;
+    for (int i = 0; i < loops.count; i++) {
+        lastView = [self loopNameAndColor:lastView ? (lastView.right_ES + 10) : xOffset dict:loops[i]];
+    }
+}
+
+- (UIView *)loopNameAndColor:(CGFloat)xOffset dict:(NSDictionary *)dict{
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(xOffset, self.curveView.bottom_ES, 0, BottomMargin)];
+    [self addSubview:view];
+
+    UIView *colorV = [[UIView alloc] initWithFrame:CGRectMake(0, (view.height_ES - 10)/2, 10, 10)];
+    colorV.backgroundColor = dict[@"color"];
+    [view addSubview:colorV];
+    
+    UILabel *nameLa = [UILabel createWithFrame:CGRectMake(colorV.right_ES + 5, 0, 0, view.height_ES) text:dict[@"name"] textColor:[UIColor colorWithRed:0.67 green:0.69 blue:0.70 alpha:1.00] textAlignment:0 fontNumber:14];
+    [view addSubview:nameLa];
+    CGFloat nameWidth = [nameLa sizeThatFits:CGSizeMake(MAXFLOAT, nameLa.height_ES)].width;
+    nameLa.width_ES = nameWidth;
+    
+    view.width_ES = nameLa.right_ES;
+    return view;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
