@@ -113,7 +113,6 @@
         
         [ElecTipsView showTips:@"获取数据失败"];
     }];
-    
 }
 
 /*客户分组*/
@@ -231,7 +230,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"_____________:%@",error);
     }];
 }
 

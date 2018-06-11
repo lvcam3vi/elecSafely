@@ -128,6 +128,8 @@ static const CGFloat SectionHeight = 40.f;
     NSMutableDictionary *paramDic = [_fliterView.dataAdapter.requestAlarmParam mutableCopy];
     int page = [paramDic[@"page"] intValue] + 1;
     paramDic[@"page"] = [NSString stringWithFormat:@"%d",page];
+    NSLog(@"_fliterView.dataAdapter.requestAlarmUrl:%@",_fliterView.dataAdapter.requestAlarmUrl);
+    
     [_httpManager GET:_fliterView.dataAdapter.requestAlarmUrl parameters:paramDic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

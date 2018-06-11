@@ -9,9 +9,7 @@
 #import "XWSBasrViewController.h"
 
 @interface XWSBasrViewController ()
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILabel *titleLabel;
+
 @end
 
 @implementation XWSBasrViewController
@@ -27,11 +25,6 @@
     
 }
 
-
-
-- (void)showErrorViewWithType:(XWSShowViewType)type{
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
