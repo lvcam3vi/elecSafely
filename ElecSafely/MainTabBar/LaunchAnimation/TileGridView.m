@@ -75,10 +75,10 @@
 
 - (void)setUpShadowAnimation{
     //company
-    self.shadowCompanyAnimation = [self getShadowAnimationWithView:_companyLabel];
+//    self.shadowCompanyAnimation = [self getShadowAnimationWithView:_companyLabel];
 
     //newLogoLabel
-    self.shadowLogoAnimation = [self getShadowAnimationWithView:_newlogoLabel];
+//    self.shadowLogoAnimation = [self getShadowAnimationWithView:_newlogoLabel];
 }
 
 - (JTSlideShadowAnimation *)getShadowAnimationWithView:(UIView *)view{

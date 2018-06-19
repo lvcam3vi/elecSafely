@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550ACD1B20D89F33004C579D /* listgl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550ACD1A20D89F33004C579D /* listgl@3x.png */; };
 		551569A72022A5B900B80642 /* libPrivateFunction.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551569A62022A5B800B80642 /* libPrivateFunction.a */; };
 		551569AD2022A6D200B80642 /* TFLoginProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569AC2022A6D200B80642 /* TFLoginProgram.m */; };
 		551569B2202305BF00B80642 /* ElecHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569B1202305BF00B80642 /* ElecHTTPManager.m */; };
@@ -243,6 +244,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550ACD1A20D89F33004C579D /* listgl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listgl@3x.png"; sourceTree = "<group>"; };
 		551569A62022A5B800B80642 /* libPrivateFunction.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPrivateFunction.a; sourceTree = "<group>"; };
 		551569AB2022A6D200B80642 /* TFLoginProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFLoginProgram.h; sourceTree = "<group>"; };
 		551569AC2022A6D200B80642 /* TFLoginProgram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFLoginProgram.m; sourceTree = "<group>"; };
@@ -1389,6 +1391,7 @@
 		EF45C0472077710B0074990E /* image */ = {
 			isa = PBXGroup;
 			children = (
+				550ACD1A20D89F33004C579D /* listgl@3x.png */,
 				EF6741AF208CC18C00B5EA3B /* diaodian@3x.png */,
 				EF6741AA208CC01900B5EA3B /* wendu@3x.png */,
 				EF45C0482077710B0074990E /* dianliu@3x.png */,
@@ -1830,6 +1833,7 @@
 				5575DF5420899389001FE8C1 /* nav_icon_filter@3x.png in Resources */,
 				5575DF58208994E9001FE8C1 /* yewan.png in Resources */,
 				EF45C0B3207771910074990E /* statistics_data_bg.png in Resources */,
+				550ACD1B20D89F33004C579D /* listgl@3x.png in Resources */,
 				55EC94861FEDF90C000D21F4 /* logo_min.png in Resources */,
 				EE66C63720B8F18A00C6B298 /* alarm_red@3x.png in Resources */,
 				EE50AECF2064A7C40068FBC1 /* left_feedback@3x.png in Resources */,
@@ -2240,8 +2244,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.frigate.ElecSafely;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6ad91117-06d5-4371-8185-226a7317a8cf";
-				PROVISIONING_PROFILE_SPECIFIER = elecProvisioning;
+				PROVISIONING_PROFILE = "9624178a-6f8e-4e72-80d8-00057f6c8cbd";
+				PROVISIONING_PROFILE_SPECIFIER = elecDistibutionPro;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

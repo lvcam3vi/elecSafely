@@ -201,7 +201,7 @@ typedef void(^IsAlarmBlock)(BOOL isAlarm);
         } completion:^(BOOL finished) {
             if (translationH > 200) {
                 [self.alarmLightImageView setImage:image forState:UIControlStateNormal];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self gotoAlarmVC:self.alarmLightImageView];
                 });
             }
@@ -236,13 +236,20 @@ typedef void(^IsAlarmBlock)(BOOL isAlarm);
     return 0;
 }
 
+// 点击气球去设备列表
 - (void)gotoAlarmVC:(UIButton *)sender{
     
     UIImage *image = [UIImage imageNamed:@"alarm_white"];
     [sender setImage:image forState:UIControlStateNormal];
     
-    XWSAlarmViewController *vc = [[XWSAlarmViewController alloc] init];
-    [self pushToViewController:vc];
+    XWSDeviceListViewController *deviceList = [[XWSDeviceListViewController alloc] init];
+    
+    [UIView transitionWithView:self.navigationController.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+        [self.navigationController pushViewController:deviceList animated:NO];
+    } completion:^(BOOL finished) {
+        
+    }];
+
 }
 
 #pragma mark - GYRollingNoticeViewDataSource,GYRollingNoticeViewDelegate
