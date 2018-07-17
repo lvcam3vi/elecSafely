@@ -8,6 +8,7 @@
 
 #import "XWSAboutViewController.h"
 #import "JTSlideShadowAnimation.h"
+#import "ElecTipsView.h"
 
 @interface XWSAboutViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headView;
@@ -173,8 +174,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSURL *url = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1297878078&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"];
-    
+    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/id1375551874"];
+
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         
         if (@available(iOS 10.0, *)) {
@@ -185,7 +186,8 @@
             [[UIApplication sharedApplication] openURL:url];
         }
     }else{
-//        NSLog(@"无法打开该URL");
+        [ElecTipsView showTips:@"无法跳转到appStore" during:2.0];
+
     }
 }
 

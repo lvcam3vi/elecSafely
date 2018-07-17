@@ -192,12 +192,9 @@
             make.centerX.mas_equalTo(loginSquare.mas_centerX);
             make.bottom.mas_equalTo(userNameLine.mas_top).offset(-14);
         }];
-        
-        
-        
+
         _loginSquare = loginSquare;
-        
-        
+
     }
     return _loginSquare;
 }
@@ -343,6 +340,15 @@
 
 - (void)dealloc{
 //    NSLog(@"%s",__func__);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == _userNameTF) {
+        [_passWordTF becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

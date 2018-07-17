@@ -119,7 +119,7 @@
     //账号
     CGFloat accountStrWidth = [NSString getStringSizeWith:_account withStringFont:PingFangMedium(18)].width;
     CGFloat accountViewWidth = supView.frame.size.width - 32 - 69 - 2 * 17;
-//    NSLog(@"accountStrWidth:%lf accountViewWidth:%lf",accountStrWidth,accountViewWidth);
+
     if (accountStrWidth > accountViewWidth) {
         [self setUpScrollTextViewWithSuperView:supView];
     }else{

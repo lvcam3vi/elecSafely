@@ -24,12 +24,18 @@
 #import "TFMainAnimationView.h"
 #import "NSString+XWSManager.h"
 #import "GYRollingNoticeView.h"
+#import "XWSFliterDataAdapter.h"
+#import "XWSGetAlarmStatuManager.h"
 
 #define AnimationTime 0.4
 #define CoverAlphaValue 0.5
+#define HeaderViewY (ScreenHeight - NavibarHeight - 130)
+#define AlarmLightViewY (HeaderViewY - 257 + 20)
+
+typedef void(^IsAlarmBlock)(BOOL isAlarm);
 
 
-@interface XWSMainViewController ()<XWSLeftViewDelegate,XWSSingleListRightViewDelegate,GYRollingNoticeViewDataSource,GYRollingNoticeViewDelegate>
+@interface XWSMainViewController ()<XWSLeftViewDelegate,XWSSingleListRightViewDelegate,GYRollingNoticeViewDataSource,GYRollingNoticeViewDelegate,XWSGetAlarmStatuManagerDelegate>
 
 @property (nonatomic, strong) XWSLeftView *leftView;
 @property (nonatomic, strong) XWSSingleListRightView *singleRighView;
@@ -44,6 +50,11 @@
 
 @property (nonatomic, strong) TFMainAnimationView *mainAnimationView;
 @property (nonatomic, strong) GYRollingNoticeView *noticeView;
+
+@property (nonatomic, strong) UIButton *alarmLightImageView;
+
+@property (nonatomic, strong) XWSGetAlarmStatuManager *manager;
+
 @end
 
 @implementation XWSMainViewController
@@ -69,20 +80,26 @@
     self.view.backgroundColor = BackColor;
     [self loadData];
     [self initView];
+    
+    
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //加载公告应该放在这里，这样在切换控制器的时候，可以加载到最新的公告数据
     [self loadNoticeData];
     [self checkBackImage];
+    [self loadDeviceAlarms];
 }
 
 #pragma mark - 加载数据
 - (void)loadData{
-    [self loadHelpData];
+   [self loadHelpData];
+}
+
+- (void)loadDeviceAlarms{
+    self.manager = [[XWSGetAlarmStatuManager alloc] init];
+    self.manager.delegate = self;
 }
 
 #pragma mark - 设置页面
@@ -90,10 +107,13 @@
     [self setUpNav];
     [self setUpLeftView];
     [self setUpSingleListRightView];
+    
     [self createMainView];
 }
 
 - (void)createScrollView {
+    
+    [self setAlarmLightView];
     
     _noticeView = [[GYRollingNoticeView alloc]initWithFrame:CGRectMake(30, ScreenHeight - NavibarHeight - 100, ScreenWidth - 60, 100)];
     _noticeView.dataSource = self;
@@ -104,7 +124,8 @@
     
     [_noticeView reloadDataAndStartRoll];
     
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(30,  ScreenHeight - NavibarHeight - 130, ScreenWidth - 60, 30)];
+    
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(30, HeaderViewY, ScreenWidth - 60, 30)];
     headView.backgroundColor = BackColor;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [headView addSubview:titleLabel];
@@ -113,24 +134,142 @@
     titleLabel.font = PingFangMedium(13);
     titleLabel.textColor = RGBA(153, 153, 153, 1);
     [self.view addSubview:headView];
+    
+    
 }
+
+//报警灯显示
+- (void)setAlarmLightView{
+    if (self.alarmLightImageView == nil) {
+        UIImage *image = [UIImage imageNamed:@"alarm_white"];
+        self.alarmLightImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.alarmLightImageView setImage:image forState:UIControlStateNormal];
+        self.alarmLightImageView.tag = 100;
+        CGRect frame = self.alarmLightImageView.frame;
+        frame.origin.x = ScreenWidth - image.size.width - 20;
+        frame.origin.y = AlarmLightViewY;
+        frame.size.width = image.size.width;
+        frame.size.height = image.size.height;
+        self.alarmLightImageView.frame = frame;
+        [self.view addSubview:self.alarmLightImageView];
+        self.alarmLightImageView.adjustsImageWhenHighlighted = NO;
+        
+        [self.alarmLightImageView addTarget:self action:@selector(gotoAlarmVC:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+        
+        [self.alarmLightImageView addGestureRecognizer:panGestureRecognizer];
+        
+    }
+}
+
+- (void) handlePan:(UIPanGestureRecognizer*) recognizer
+{
+    UIImage *image = [UIImage imageNamed:@"alarm_white"];
+    
+    CGPoint translation = [recognizer translationInView:self.view];
+    
+    if(recognizer.state == UIGestureRecognizerStateChanged){
+        int dr = [self commitTranslation:[recognizer translationInView:self.view]];
+        if (dr == 0 || dr == 1) {
+            return;
+        }
+    }
+    
+    //限制左右滑动
+    if (translation.x != 0) {
+        translation.x = 0;
+    }
+    //限制上滑
+    if (translation.y < 0) {
+        translation.y = 0;
+    }
+    
+    CGFloat centerX = recognizer.view.center.x+ translation.x;
+    CGFloat centerY = recognizer.view.center.y+ translation.y;
+    
+    //滑动的距离
+    __block CGFloat translationH = centerY - AlarmLightViewY;
+    recognizer.view.center = CGPointMake(centerX,centerY);
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+    if(recognizer.state==UIGestureRecognizerStateEnded|| recognizer.state==UIGestureRecognizerStateCancelled) {
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = self.alarmLightImageView.frame;
+            frame.origin.y = AlarmLightViewY;
+            self.alarmLightImageView.frame = frame;
+        } completion:^(BOOL finished) {
+            if (translationH > 200) {
+                [self.alarmLightImageView setImage:image forState:UIControlStateNormal];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self gotoAlarmVC:self.alarmLightImageView];
+                });
+            }
+            translationH = 0;
+        }];
+    }
+}
+
+- (int)commitTranslation:(CGPoint)translation
+{
+    CGFloat absX = fabs(translation.x);
+    CGFloat absY = fabs(translation.y);
+    
+    //上：0 左：1 下：2 右：3
+    if (absX > absY ) {
+        if (translation.x<0) {
+            //向左滑动
+            return 0;
+        }else{
+            //向右滑动
+            return 1;
+        }
+    } else if (absY > absX) {
+        if (translation.y<0) {
+            //向上滑动
+            return 2;
+        }else{
+            //向下滑动
+            return 3;
+        }
+    }
+    return 0;
+}
+
+// 点击气球去设备列表
+- (void)gotoAlarmVC:(UIButton *)sender{
+    
+    UIImage *image = [UIImage imageNamed:@"alarm_white"];
+    [sender setImage:image forState:UIControlStateNormal];
+    
+    XWSDeviceListViewController *deviceList = [[XWSDeviceListViewController alloc] init];
+    
+    [UIView transitionWithView:self.navigationController.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+        [self.navigationController pushViewController:deviceList animated:NO];
+    } completion:^(BOOL finished) {
+        
+    }];
+
+}
+
+#pragma mark - GYRollingNoticeViewDataSource,GYRollingNoticeViewDelegate
 
 - (NSInteger)numberOfRowsForRollingNoticeView:(GYRollingNoticeView *)rollingView
 {
-        return _quetions.count;
+    return _quetions.count;
 }
 - (__kindof GYNoticeViewCell *)rollingNoticeView:(GYRollingNoticeView *)rollingView cellAtIndex:(NSUInteger)index
 {
     // 普通用法，只有一行label滚动显示文字
     // normal use, only one line label rolling
-        GYNoticeViewCell *cell = [rollingView dequeueReusableCellWithIdentifier:@"CustomNoticeCell"];
-        XWSHelpModel *model = _quetions[index];
-        cell.textLabel.text = model.Title;
-        cell.textLabel.font = PingFangMedium(15);
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.contentView.backgroundColor = NavColor;
-
-        return cell;
+    GYNoticeViewCell *cell = [rollingView dequeueReusableCellWithIdentifier:@"CustomNoticeCell"];
+    XWSHelpModel *model = _quetions[index];
+    cell.textLabel.text = model.Title;
+    cell.textLabel.font = PingFangMedium(15);
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.contentView.backgroundColor = NavColor;
+    
+    return cell;
 }
 
 - (void)didClickRollingNoticeView:(GYRollingNoticeView *)rollingView forIndex:(NSUInteger)index
@@ -149,13 +288,13 @@
 - (void)createMainView {
     _mainBackImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _mainBackImageView.image = [UIImage imageNamed:@"baitian"];
-
+    
     [self.view addSubview:_mainBackImageView];
     [_mainBackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.mas_equalTo(0);
     }];
     
-//    [self createAnimationView];
+    //    [self createAnimationView];
     _todayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _todayLabel.textColor = [UIColor whiteColor];
     _todayLabel.textAlignment = NSTextAlignmentLeft;
@@ -181,7 +320,7 @@
 
 - (void)checkBackImage {
     NSString *moment = [NSString isDayTime]?@"baitian":@"yewan";
-
+    
     if (!_mainAnimationView) {
         [self createAnimationView:moment];
     }
@@ -221,7 +360,7 @@
     unsigned unitFlags = NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitDay;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:unitFlags fromDate:[NSDate date]];
-//    NSLog(@"%ld, %ld, %ld", (long)components.year, (long)components.month, (long)components.day);
+    //    NSLog(@"%ld, %ld, %ld", (long)components.year, (long)components.month, (long)components.day);
     NSString *dateStr = [NSString stringWithFormat:@"%ld月%ld日",(long)components.month,(long)components.day];
     NSString *weekStr = [self weekdayStringFromDate:[NSDate date]];
     
@@ -285,7 +424,7 @@
     } completion:^(BOOL finished) {
     }];
     
-     //设置颜色渐变动画
+    //设置颜色渐变动画
     [_leftView startCoverViewOpacityWithAlpha:CoverAlphaValue withDuration:AnimationTime];
 }
 
@@ -314,7 +453,7 @@
     switch (type) {
         case XWSTouchItemUserInfo:
         {
-           
+            
         }
             break;
         case XWSTouchItemDevicesList:
@@ -357,7 +496,7 @@
         {
             XWSSettingViewController *settingVC = [[XWSSettingViewController alloc] init];
             vc = settingVC;
-           
+            
         }
             break;
             
@@ -368,22 +507,15 @@
     if (vc == nil) {
         return;
     }
-    [UIView transitionWithView:self.navigationController.view
-     
-                      duration:0.5
-     
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-     
-                    animations:^{
-                        
-                        [self.navigationController pushViewController:vc animated:NO];
-                        
-                    }
-     
-                    completion:nil];
-    
+    [self pushToViewController:vc];
+}
 
-//     [self.navigationController pushViewController:vc animated:YES];
+- (void)pushToViewController:(UIViewController *)vc{
+    [UIView transitionWithView:self.navigationController.view duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [self.navigationController pushViewController:vc animated:NO];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - 公告
@@ -394,8 +526,6 @@
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
         
-//        NSLog(@"dic:%@",dic);
-        
         NSArray *ds = dic[@"rows"];
         [weakVC.notices removeAllObjects];
         
@@ -405,7 +535,7 @@
         if (ds.count > 10) {
             count = 10;
         }
-
+        
         for (int i = 0;i < count; i++) {
             NSDictionary *obj = ds[i];
             XWSNoticeModel *model = [[XWSNoticeModel alloc] init];
@@ -418,7 +548,7 @@
             [weakVC.notices addObject:model];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"error:%@",error);
+        //        NSLog(@"error:%@",error);
         [ElecTipsView showTips:@"网络错误，请检查网络情况" during:2.0];
     }];
 }
@@ -429,9 +559,13 @@
     self.quetions = [[NSMutableArray alloc] initWithCapacity:0];
     __weak typeof(self) weakVC = self;
     [noticeMgr GET:FrigateAPI_Help_InformationList parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        NSLog(@"responseObject:%@",responseObject);
         NSArray *results = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
         [weakVC.quetions removeAllObjects];
+        
+        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"str:%@",str);
         
         for (NSDictionary *dic in results) {
             XWSHelpModel *model = [[XWSHelpModel alloc] init];
@@ -442,15 +576,15 @@
         }
         
         [self createScrollView];
-
+        
         
         //        [weakVC.tableView reloadData];
         
         
-//        [self loadDataWithScroll];
-
+        //        [self loadDataWithScroll];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"error:%@",error);
+        //        NSLog(@"error:%@",error);
         [ElecTipsView showTips:@"网络错误，请检查网络连接情况"];
     }];
 }
@@ -525,8 +659,18 @@
     }
 }
 
+#pragma mark - XWSFliterDataAdapterDelegate
+- (void)haveDeviceAlarm:(BOOL)hAlarm{
+    NSString *imageName = @"alarm_white";
+    if (hAlarm) {
+        imageName = @"alarm_red";
+    }
+    
+    [self.alarmLightImageView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+}
+
 - (void)dealloc{
-//    NSLog(@"main:%s",__func__);
+    //    NSLog(@"main:%s",__func__);
     [_noticeView stopRoll];
 }
 

@@ -105,8 +105,6 @@
         [sendBtn addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
         
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendBtn];
-        
-        
     }
     
     self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 30)];

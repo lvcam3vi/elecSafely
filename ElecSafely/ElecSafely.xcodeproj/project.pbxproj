@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550ACD1B20D89F33004C579D /* listgl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550ACD1A20D89F33004C579D /* listgl@3x.png */; };
 		551569A72022A5B900B80642 /* libPrivateFunction.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551569A62022A5B800B80642 /* libPrivateFunction.a */; };
 		551569AD2022A6D200B80642 /* TFLoginProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569AC2022A6D200B80642 /* TFLoginProgram.m */; };
 		551569B2202305BF00B80642 /* ElecHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569B1202305BF00B80642 /* ElecHTTPManager.m */; };
@@ -110,6 +111,7 @@
 		EE250EC120705ECA0021FA80 /* LCQrcodeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE250EBF20705ECA0021FA80 /* LCQrcodeUtil.m */; };
 		EE2F2141208AD6EF00BB540D /* XWSDayAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2F2140208AD6EE00BB540D /* XWSDayAnimationView.m */; };
 		EE2F2146208CD3E700BB540D /* LMJScrollTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2F2145208CD3E700BB540D /* LMJScrollTextView.m */; };
+		EE30C09220BC402700DE58FB /* XWSGetAlarmStatuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30C09120BC402700DE58FB /* XWSGetAlarmStatuManager.m */; };
 		EE36A37720691C2300E71A54 /* XWSFeedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE36A37620691C2300E71A54 /* XWSFeedImageCell.m */; };
 		EE47D3C1206C9A6E006FEA3C /* XWSAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3C0206C9A6E006FEA3C /* XWSAboutViewController.m */; };
 		EE47D3C4206CA46C006FEA3C /* XWSSettingPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE47D3C3206CA46C006FEA3C /* XWSSettingPasswordViewController.m */; };
@@ -126,6 +128,8 @@
 		EE50AED12064A7C40068FBC1 /* left_statistics@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE50AECA2064A7C40068FBC1 /* left_statistics@3x.png */; };
 		EE50AEDA206504A90068FBC1 /* XWSScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE50AED9206504A90068FBC1 /* XWSScanView.m */; };
 		EE50AEDD206504EA0068FBC1 /* XWSScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE50AEDC206504EA0068FBC1 /* XWSScanViewController.m */; };
+		EE66C63620B8F18A00C6B298 /* alarm_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE66C63420B8F18900C6B298 /* alarm_white@3x.png */; };
+		EE66C63720B8F18A00C6B298 /* alarm_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE66C63520B8F18A00C6B298 /* alarm_red@3x.png */; };
 		EE936EFC20750AA700D3BD54 /* left_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE936EFB20750AA700D3BD54 /* left_menu@3x.png */; };
 		EE936EFE20750C5A00D3BD54 /* right_notice@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE936EFD20750C5A00D3BD54 /* right_notice@3x.png */; };
 		EE936F0020750EAD00D3BD54 /* logo_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE936EFF20750EAD00D3BD54 /* logo_icon@3x.png */; };
@@ -240,6 +244,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550ACD1A20D89F33004C579D /* listgl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listgl@3x.png"; sourceTree = "<group>"; };
 		551569A62022A5B800B80642 /* libPrivateFunction.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPrivateFunction.a; sourceTree = "<group>"; };
 		551569AB2022A6D200B80642 /* TFLoginProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFLoginProgram.h; sourceTree = "<group>"; };
 		551569AC2022A6D200B80642 /* TFLoginProgram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFLoginProgram.m; sourceTree = "<group>"; };
@@ -450,6 +455,8 @@
 		EE2F2140208AD6EE00BB540D /* XWSDayAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWSDayAnimationView.m; sourceTree = "<group>"; };
 		EE2F2144208CD3E700BB540D /* LMJScrollTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJScrollTextView.h; sourceTree = "<group>"; };
 		EE2F2145208CD3E700BB540D /* LMJScrollTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJScrollTextView.m; sourceTree = "<group>"; };
+		EE30C09020BC402700DE58FB /* XWSGetAlarmStatuManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSGetAlarmStatuManager.h; sourceTree = "<group>"; };
+		EE30C09120BC402700DE58FB /* XWSGetAlarmStatuManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSGetAlarmStatuManager.m; sourceTree = "<group>"; };
 		EE36A37520691C2300E71A54 /* XWSFeedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSFeedImageCell.h; sourceTree = "<group>"; };
 		EE36A37620691C2300E71A54 /* XWSFeedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSFeedImageCell.m; sourceTree = "<group>"; };
 		EE47D3BF206C9A6E006FEA3C /* XWSAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSAboutViewController.h; sourceTree = "<group>"; };
@@ -475,6 +482,8 @@
 		EE50AED9206504A90068FBC1 /* XWSScanView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSScanView.m; sourceTree = "<group>"; };
 		EE50AEDB206504EA0068FBC1 /* XWSScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSScanViewController.h; sourceTree = "<group>"; };
 		EE50AEDC206504EA0068FBC1 /* XWSScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSScanViewController.m; sourceTree = "<group>"; };
+		EE66C63420B8F18900C6B298 /* alarm_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_white@3x.png"; sourceTree = "<group>"; };
+		EE66C63520B8F18A00C6B298 /* alarm_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_red@3x.png"; sourceTree = "<group>"; };
 		EE936EFB20750AA700D3BD54 /* left_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_menu@3x.png"; sourceTree = "<group>"; };
 		EE936EFD20750C5A00D3BD54 /* right_notice@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_notice@3x.png"; sourceTree = "<group>"; };
 		EE936EFF20750EAD00D3BD54 /* logo_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_icon@3x.png"; sourceTree = "<group>"; };
@@ -714,6 +723,8 @@
 				EED9196A206F10A8002CF969 /* net_error.png */,
 				EEFB698020862BBC0060C076 /* add-img.png */,
 				5575DF5320899389001FE8C1 /* nav_icon_filter@3x.png */,
+				EE66C63520B8F18A00C6B298 /* alarm_red@3x.png */,
+				EE66C63420B8F18900C6B298 /* alarm_white@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1307,6 +1318,8 @@
 			children = (
 				EEEF714220749E9800ABD711 /* XWSNoticeModel.h */,
 				EEEF714320749E9800ABD711 /* XWSNoticeModel.m */,
+				EE30C09020BC402700DE58FB /* XWSGetAlarmStatuManager.h */,
+				EE30C09120BC402700DE58FB /* XWSGetAlarmStatuManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1378,6 +1391,7 @@
 		EF45C0472077710B0074990E /* image */ = {
 			isa = PBXGroup;
 			children = (
+				550ACD1A20D89F33004C579D /* listgl@3x.png */,
 				EF6741AF208CC18C00B5EA3B /* diaodian@3x.png */,
 				EF6741AA208CC01900B5EA3B /* wendu@3x.png */,
 				EF45C0482077710B0074990E /* dianliu@3x.png */,
@@ -1802,6 +1816,7 @@
 				EE936EFE20750C5A00D3BD54 /* right_notice@3x.png in Resources */,
 				EED9196B206F10A8002CF969 /* net_error.png in Resources */,
 				EE50AED02064A7C40068FBC1 /* left_devices_list@3x.png in Resources */,
+				EE66C63620B8F18A00C6B298 /* alarm_white@3x.png in Resources */,
 				553D35E5200465FF00FCC58F /* bg@3x.png in Resources */,
 				5575DF57208994E9001FE8C1 /* baitian.png in Resources */,
 				EE50AECD2064A7C40068FBC1 /* left_setting@3x.png in Resources */,
@@ -1818,7 +1833,9 @@
 				5575DF5420899389001FE8C1 /* nav_icon_filter@3x.png in Resources */,
 				5575DF58208994E9001FE8C1 /* yewan.png in Resources */,
 				EF45C0B3207771910074990E /* statistics_data_bg.png in Resources */,
+				550ACD1B20D89F33004C579D /* listgl@3x.png in Resources */,
 				55EC94861FEDF90C000D21F4 /* logo_min.png in Resources */,
+				EE66C63720B8F18A00C6B298 /* alarm_red@3x.png in Resources */,
 				EE50AECF2064A7C40068FBC1 /* left_feedback@3x.png in Resources */,
 				EFED1AE5208523A600179276 /* MJRefresh.bundle in Resources */,
 				EE936EFC20750AA700D3BD54 /* left_menu@3x.png in Resources */,
@@ -1951,6 +1968,7 @@
 				55156A14202312AC00B80642 /* DGActivityIndicatorCookieTerminatorAnimation.m in Sources */,
 				553D38652004E47300FCC58F /* SecurityUtil.m in Sources */,
 				EF6E55C2208AACC700DC9120 /* XWSPrismaticView.m in Sources */,
+				EE30C09220BC402700DE58FB /* XWSGetAlarmStatuManager.m in Sources */,
 				EF45C040207770F70074990E /* ESDeviceViewController.m in Sources */,
 				55FEDD791FDF66DC005BD966 /* UIImageView+AFNetworking.m in Sources */,
 				EF45C0C92079090A0074990E /* XWSAlarmViewController.m in Sources */,
@@ -2170,6 +2188,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = ElecSafely/ElecSafely.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8RDZLRPEAS;
@@ -2191,7 +2210,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.frigate.ElecSafely;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8bc5d0bb-55c6-4d99-a48d-247ba7ef80aa";
+				PROVISIONING_PROFILE = "6ad91117-06d5-4371-8185-226a7317a8cf";
 				PROVISIONING_PROFILE_SPECIFIER = elecProvisioning;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2203,6 +2222,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = ElecSafely/ElecSafely.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8RDZLRPEAS;

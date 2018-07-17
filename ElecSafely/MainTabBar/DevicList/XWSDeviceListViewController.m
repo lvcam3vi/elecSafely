@@ -198,11 +198,11 @@
     XWSDeviceListModel *model = _dataSource[indexPath.row];
     cell.textLabel.text = model.Name;
     cell.detailTextLabel.text = model.AlarmText;
-//    if ([model.Alarm isEqualToString:@"1"]){
-//        cell.imageView.image = [UIImage imageNamed:@"loudian"];
-//    }else{
+    if ([model.Alarm isEqualToString:@"1"]){
+        cell.imageView.image = [UIImage imageNamed:@"listgl"];
+    }else{
         cell.imageView.image = [UIImage imageNamed:@"dianliu"];
-//    }
+    }
     UILabel *la = (UILabel *)cell.accessoryView;
     if ([la isKindOfClass:UILabel.class]) {
 //        la.text = [self showDate:model.UpdataDate];
