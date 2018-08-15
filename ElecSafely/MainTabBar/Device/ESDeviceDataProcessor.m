@@ -10,7 +10,6 @@
 #import "ESDeviceData.h"
 
 @interface ESDeviceDataProcessor ()
-
 {
     ElecHTTPManager *_httpManager;
 }
