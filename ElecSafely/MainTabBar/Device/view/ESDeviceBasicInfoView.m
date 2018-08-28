@@ -29,7 +29,7 @@ typedef void(^DeviceBasicInfoClickDetailBtn)(void);
     UILabel *_updateLabel;
     UILabel *_onlineLabel;
     UILabel *_detailLabel;
-    
+    UILabel *_servceLabel;
     DeviceBasicInfoClickDetailBtn _clickDetailBtn;
 }
 @end
@@ -100,6 +100,19 @@ typedef void(^DeviceBasicInfoClickDetailBtn)(void);
     UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterIntoDetailVC)];
     [_detailLabel addGestureRecognizer:tapGes];
     _detailLabel.userInteractionEnabled = YES;
+    
+    _servceLabel = [self labelWith:@"服务" font:[UIFont systemFontOfSize:13] textColor:TextColor textAlignment:1];
+    _servceLabel.width_ES = 40.f;
+    _servceLabel.height_ES = 20.f;
+    _servceLabel.y_ES = _nameLabel.bottom_ES;
+    _servceLabel.right_ES = _backgroudView.width_ES - leftMargin;
+    _servceLabel.layer.borderWidth = 0.2;
+    _servceLabel.layer.borderColor = TextColor.CGColor;
+    _servceLabel.layer.cornerRadius = 3.f;
+    
+    UITapGestureRecognizer *tapGes2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterServceDetailVC)];
+    [_servceLabel addGestureRecognizer:tapGes2];
+    _servceLabel.userInteractionEnabled = YES;
 }
 
 - (UILabel *)labelWith:(NSString *)text font:(UIFont *)font textColor:(UIColor *)textColor textAlignment:(NSTextAlignment)textAlignment{
@@ -116,6 +129,12 @@ typedef void(^DeviceBasicInfoClickDetailBtn)(void);
 
 - (void)enterIntoDetailVC{
     
+    if (_clickDetailBtn) {
+        _clickDetailBtn();
+    }
+}
+
+- (void)enterServceDetailVC {
     if (_clickDetailBtn) {
         _clickDetailBtn();
     }
