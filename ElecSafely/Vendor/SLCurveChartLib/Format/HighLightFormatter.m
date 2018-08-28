@@ -30,11 +30,14 @@
     CGContextStrokePath(context);
     CGContextRestoreGState(context);
     //开始绘制显示的数值预计圆形小球
-    NSDictionary *yattrs = [self getAttributesWithfont:[UIFont systemFontOfSize:11] Color:[UIColor colorWithHex:@"#727272"]];
-    NSString *Ystring = [NSString stringWithFormat:@"%0.0lf",highlight.y];
+    NSDictionary *yattrs = [self getAttributesWithfont:[UIFont systemFontOfSize:6] Color:[UIColor colorWithHex:@"#727272"]];
+    
+//    NSString *Ystring = [NSString stringWithFormat:@"%0.0lf",highlight.y];  2018.8.6
+    NSString *Ystring = @"";
+    
     CGSize ysize = [Ystring sizeWithAttributes:yattrs];
-    CGFloat radicusW = ysize.width + 14;
-    CGFloat radicusH = ysize.height+ 4;
+    CGFloat radicusW = ysize.width;
+    CGFloat radicusH = ysize.height;
     CGFloat radicusR = radicusH/2;
     if (radicusW < radicusH) {
         radicusW = radicusH;
@@ -55,6 +58,11 @@
     CGPoint localpointY = CGPointMake(modelX - ysize.width/2, highlight.drawY- ysize.height/2);
     [Ystring drawAtPoint:localpointY withAttributes:yattrs];
     CGContextRestoreGState(context);
+    
+    //返回当前高亮点   2018.8.6
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chartCurrentHighLight:)]) {
+        [self.delegate chartCurrentHighLight:highlight];
+    }
 }
 
 -(void) drawRadicusRectWith:(CGRect) rect

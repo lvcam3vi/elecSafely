@@ -14,25 +14,30 @@
 #import "YRightAxisFormtter.h"
 #import "HighLightFormatter.h"
 
-const CGFloat CurveChartTotalH = 240.0;//CurveChartH + BottomMargin + TopTextHeight + 20
+const CGFloat CurveChartTotalH = 290.0;//CurveChartH + BottomMargin + TopTextHeight + 20 + HighLightHeight + 10
 
 static const CGFloat CurveChartH = 150.0;
 static const CGFloat BottomMargin = 20.0;
 static const CGFloat TopTextHeight = 50.0;
+static const CGFloat HighLightHeight = 40.0;
 
 static const CGFloat LeftMargin = 15.0;
 
 #define TEXT_COLOR [UIColor colorWithRed:0.60 green:0.61 blue:0.62 alpha:1.00]
 #define Line_COLOR [UIColor colorWithRed:0.33 green:0.34 blue:0.36 alpha:1.00]
 
-@interface CurveChartView ()
+@interface CurveChartView ()<HighLightFormatterDelegate>
 {
     int _yMax;
+    
+    NSMutableArray *_bottomLoops;
+    NSMutableArray *_valuesArray;
 }
 @property (strong, nonatomic) BaseCurveView *curveView;
 @property (nonatomic, strong) SLLineChartData* dataSource;
 @property (nonatomic, strong) SLGCDTimer timer;
 @property (nonatomic, strong) HighLightFormatter *highLightFor;
+@property (nonatomic, strong) UILabel *tipLabel;
 
 @end
 
@@ -137,13 +142,14 @@ static const CGFloat LeftMargin = 15.0;
         //    rightYAxis.gridColor = [UIColor colorWithColor:[UIColor blueColor] andalpha:0.25];;
         //    rightYAxis.enabled = YES;
         
-        //    //默认选择的highlight
-        //    ChartHighlight* highLight = [[ChartHighlight alloc] init];
-        //    highLight.dataIndex = 5;
-        //    highLight.enabled = YES;
-        //    self.highLightFor = [[HighLightFormatter alloc] init];
-        //    highLight.delegate = self.highLightFor;
-        //    self.curveView.hightLight = highLight;
+        //默认选择的highlight
+        ChartHighlight* highLight = [[ChartHighlight alloc] init];
+        highLight.dataIndex = 0;
+        highLight.enabled = YES;
+        self.highLightFor = [[HighLightFormatter alloc] init];
+        self.highLightFor.delegate = self;
+        highLight.delegate = self.highLightFor;
+        self.curveView.hightLight = highLight;
         
         [self setCurveChartData:curveChartData];
     }
@@ -155,15 +161,15 @@ static const CGFloat LeftMargin = 15.0;
 - (void)setUpChartData:(NSDictionary *)chartData{
     
     NSArray *colorArr = @[[UIColor greenColor],[UIColor yellowColor],[UIColor blueColor],[UIColor cyanColor],[UIColor orangeColor],[UIColor purpleColor]];//线路颜色
-    NSMutableArray *valuesArray = [NSMutableArray arrayWithCapacity:1];//表格
-    NSMutableArray *bottomLoops = [NSMutableArray arrayWithCapacity:3];//底部回路名称和颜色
+    _valuesArray = [NSMutableArray arrayWithCapacity:1];//表格曲线
+    _bottomLoops = [NSMutableArray arrayWithCapacity:3];//底部回路名称和颜色
     NSArray *CurrLoop = chartData[@"CurrLoop"];
     for (int i = 0; i < CurrLoop.count; i++) {
         
         UIColor *color = colorArr[i % colorArr.count];
         
         NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]]};
-        [bottomLoops addObject:loopNameColor];//底部
+        [_bottomLoops addObject:loopNameColor];//底部
         
         NSMutableArray *tempArr = [self tempArray:chartData loopNum:CurrLoop[i]];
         
@@ -179,7 +185,7 @@ static const CGFloat LeftMargin = 15.0;
         dataSet.drawFilledEnabled = NO;
         dataSet.gradientColors = @[color, [UIColor clearColor]];
         
-        [valuesArray addObject:dataSet];
+        [_valuesArray addObject:dataSet];
     }
     
     /*1、有些Y值全部为0，造成无法显示，故虚构一个补充  2、最大Y值可按此方法设置*/
@@ -189,10 +195,10 @@ static const CGFloat LeftMargin = 15.0;
         dataSet.color = [UIColor clearColor];
         dataSet.drawCircleHoleEnabled = NO;
         dataSet.drawCirclesEnabled = NO;
-        [valuesArray addObject:dataSet];
+        [_valuesArray addObject:dataSet];
     }
     
-    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:valuesArray];
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray];
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
@@ -226,7 +232,7 @@ static const CGFloat LeftMargin = 15.0;
     [self.curveView refreashDataSourceRestoreContext:self.dataSource];
     
     /*底部回路颜色提示和名字*/
-    [self createBottomTipView:bottomLoops];
+    [self createBottomTipView:_bottomLoops];
 }
 
 
@@ -288,6 +294,39 @@ static const CGFloat LeftMargin = 15.0;
     
     view.width_ES = nameLa.right_ES;
     return view;
+}
+
+//HighLightFormatterDelegate  当前高亮点
+- (void)chartCurrentHighLight:(ChartHighlight *)highlight{
+    NSDictionary *dict = _bottomLoops[highlight.dataSetIndex];
+    UIColor *color = dict[@"color"];
+    NSString *name = dict[@"name"];
+    NSArray *dateArr = _curveChartData[@"dateArr"];
+    NSString *date = dateArr[(int)highlight.x];
+    NSString *value = [NSString stringWithFormat:@"%.f",highlight.y];
+    NSString *tipStr = [NSString stringWithFormat:@"你当前选中%@,时间为%@,值为%@",name,date,value];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:tipStr];
+    
+    [attributedText addAttributes:@{NSFontAttributeName:FONT14,NSForegroundColorAttributeName:color} range:[attributedText.string rangeOfString:name]];
+    [attributedText addAttributes:@{NSFontAttributeName:FONT14,NSForegroundColorAttributeName:color} range:[attributedText.string rangeOfString:date]];
+    [attributedText addAttributes:@{NSFontAttributeName:FONT14,NSForegroundColorAttributeName:color} range:[attributedText.string rangeOfString:value]];
+    
+    self.tipLabel.attributedText = attributedText;
+}
+
+- (UILabel *)tipLabel{
+    
+    if (_tipLabel == nil) {
+        _tipLabel = [UILabel createWithFrame:CGRectMake(2*LeftMargin, self.height_ES - HighLightHeight - 10, self.width_ES - 4*LeftMargin, HighLightHeight)
+                                          text:@""
+                                     textColor:[UIColor colorWithRed:0.67 green:0.69 blue:0.70 alpha:1.00]
+                                 textAlignment:0
+                                    fontNumber:14];
+        [self addSubview:_tipLabel];
+        _tipLabel.numberOfLines = 2;
+    }
+    
+    return _tipLabel;
 }
 
 
