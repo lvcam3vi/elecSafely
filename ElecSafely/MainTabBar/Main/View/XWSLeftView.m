@@ -225,7 +225,7 @@
             break;
         case 1:
             iconImageView.image = [UIImage imageNamed:@"left_alarm"];
-            titleLab.text = @"警报";
+            titleLab.text = @"报警记录";
             break;
         case 2:
             iconImageView.image = [UIImage imageNamed:@"left_statistics"];

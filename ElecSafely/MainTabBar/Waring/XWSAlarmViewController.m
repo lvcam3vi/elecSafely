@@ -47,7 +47,7 @@ static const CGFloat SectionHeight = 40.f;
     [super viewDidLoad];
         // Do any additional setup after loading the view.
     _httpManager = [ElecHTTPManager manager];
-    self.title = @"警报";
+    self.title = @"报警记录";
     self.view.backgroundColor = CURRENT_VC_BACKCOLOR;
     _dataSource = [NSMutableArray array];
     
