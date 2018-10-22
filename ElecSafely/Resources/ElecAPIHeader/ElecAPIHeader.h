@@ -9,10 +9,13 @@
 #ifndef ElecAPIHeader_h
 #define ElecAPIHeader_h
 
-/*设备查询*/
-#define FrigateAPI_Query @"http://www.frigate-iot.com/API/Query.php"
 /*设备录入*/
 #define FrigateAPI_BindApp @"http://www.frigate-iot.com/login/app/login_bind.php"
+
+#define FrigateAPI_Login_Check @"http://www.frigate-iot.com/data/login_chk.php"
+
+/*设备查询*/
+#define FrigateAPI_Query @"http://www.frigate-iot.com/API/Query.php"
 /*设备复位*/
 #define FrigateAPI_Reset @"http://www.frigate-iot.com/API/Reset.php"
 /*设备实时信息*/
@@ -28,7 +31,6 @@
 /*客户名称*/
 #define FrigateAPI_CustomerList @"http://www.frigate-iot.com/MonitoringCentre/Data/SelectCustomerData.php"
 
-#define FrigateAPI_Login_Check @"http://www.frigate-iot.com/data/login_chk.php"
 /*热点问题的url*/
 #define FrigateAPI_Help_AnswerForAsk @"http://www.frigate-iot.com/MonitoringCentre/MsgCenter/HotCareList.php"
 /*资讯列表*/
@@ -51,4 +53,13 @@
 /*公告内容*/
 #define FrigateAPI_noticeContent(noticeID) ([NSString stringWithFormat:@"http://www.frigate-iot.com/MonitoringCentre/Data/loadNoticeContent.php?ID=%@",noticeID])
 
+/*设备服务历史*/
+#define FrigateAPI_DeviceServerHistory  @"http://www.frigate-iot.com/MonitoringCentre/Log/Data/DevServiceHistory.php"
+
 #endif /* ElecAPIHeader_h */
+
+
+
+
+
+

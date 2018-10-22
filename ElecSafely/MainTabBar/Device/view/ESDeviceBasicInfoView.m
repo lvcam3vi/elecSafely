@@ -31,6 +31,7 @@ typedef void(^DeviceBasicInfoClickDetailBtn)(void);
     UILabel *_detailLabel;
     UILabel *_servceLabel;
     DeviceBasicInfoClickDetailBtn _clickDetailBtn;
+    DeviceBasicInfoClickDetailBtn _clickServerBtn;
 }
 @end
 
@@ -135,14 +136,15 @@ typedef void(^DeviceBasicInfoClickDetailBtn)(void);
 }
 
 - (void)enterServceDetailVC {
-    if (_clickDetailBtn) {
-        _clickDetailBtn();
+    if (_clickServerBtn) {
+        _clickServerBtn();
     }
 }
 
-- (void)updateBasicData:(ESDeviceData *)deviceData clickDetailBtn:(void (^)(void))clickDetailBtn{
+- (void)updateBasicData:(ESDeviceData *)deviceData clickDetailBtn:(void (^)(void))clickDetailBtn  clickServerBtn:(void (^)(void))clickServerBtn {
     
     _clickDetailBtn = clickDetailBtn;
+    _clickServerBtn = clickServerBtn;
     
     _nameLabel.text = deviceData.CRCID;
     CGFloat nameWidth = [_nameLabel sizeThatFits:CGSizeMake(MAXFLOAT, _nameLabel.height_ES)].width;

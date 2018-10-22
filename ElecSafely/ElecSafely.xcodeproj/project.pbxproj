@@ -47,6 +47,8 @@
 		55156A22202312AC00B80642 /* DGActivityIndicatorTripleRingsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569FC202312AC00B80642 /* DGActivityIndicatorTripleRingsAnimation.m */; };
 		55156A23202312AC00B80642 /* DGActivityIndicatorTwoDotsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 551569FE202312AC00B80642 /* DGActivityIndicatorTwoDotsAnimation.m */; };
 		55156A24202312AC00B80642 /* DGActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55156A01202312AC00B80642 /* DGActivityIndicatorView.m */; };
+		5531840C217DBF26008A3BE7 /* XWSDeviceServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5531840B217DBF26008A3BE7 /* XWSDeviceServerCell.m */; };
+		5533E3AC215B238600D522E3 /* XWSDeviceServerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5533E3AB215B238600D522E3 /* XWSDeviceServerVC.m */; };
 		553D35E5200465FF00FCC58F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553D35E3200465FF00FCC58F /* bg@3x.png */; };
 		553D35E6200465FF00FCC58F /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553D35E4200465FF00FCC58F /* logo@3x.png */; };
 		553D38342004716500FCC58F /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 553D381C2004716500FCC58F /* MASCompositeConstraint.m */; };
@@ -324,6 +326,10 @@
 		551569FF202312AC00B80642 /* DGActivityIndicatorAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGActivityIndicatorAnimationProtocol.h; sourceTree = "<group>"; };
 		55156A00202312AC00B80642 /* DGActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGActivityIndicatorView.h; sourceTree = "<group>"; };
 		55156A01202312AC00B80642 /* DGActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGActivityIndicatorView.m; sourceTree = "<group>"; };
+		5531840A217DBF26008A3BE7 /* XWSDeviceServerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSDeviceServerCell.h; sourceTree = "<group>"; };
+		5531840B217DBF26008A3BE7 /* XWSDeviceServerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSDeviceServerCell.m; sourceTree = "<group>"; };
+		5533E3AA215B238600D522E3 /* XWSDeviceServerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWSDeviceServerVC.h; sourceTree = "<group>"; };
+		5533E3AB215B238600D522E3 /* XWSDeviceServerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWSDeviceServerVC.m; sourceTree = "<group>"; };
 		553D35E3200465FF00FCC58F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		553D35E4200465FF00FCC58F /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
 		553D381B2004716500FCC58F /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
@@ -1346,6 +1352,8 @@
 				EF45C032207770F70074990E /* ESDeviceViewController.m */,
 				EFED1AA52083508B00179276 /* XWSDeviceBaseInfoVC.h */,
 				EFED1AA62083508B00179276 /* XWSDeviceBaseInfoVC.m */,
+				5533E3AA215B238600D522E3 /* XWSDeviceServerVC.h */,
+				5533E3AB215B238600D522E3 /* XWSDeviceServerVC.m */,
 				EF45C033207770F70074990E /* model */,
 				EF45C038207770F70074990E /* view */,
 			);
@@ -1370,6 +1378,8 @@
 				EF45C03A207770F70074990E /* ESDeviceBasicInfoView.m */,
 				EF45C03B207770F70074990E /* ESDeviceLoopTypeValueView.h */,
 				EF45C03C207770F70074990E /* ESDeviceLoopTypeValueView.m */,
+				5531840A217DBF26008A3BE7 /* XWSDeviceServerCell.h */,
+				5531840B217DBF26008A3BE7 /* XWSDeviceServerCell.m */,
 				EF45C03D207770F70074990E /* ESDeviceView.h */,
 				EF45C03E207770F70074990E /* ESDeviceView.m */,
 			);
@@ -1945,6 +1955,7 @@
 				553D38392004716500FCC58F /* MASViewConstraint.m in Sources */,
 				EFED1AD9208523A600179276 /* MJRefreshComponent.m in Sources */,
 				55156A09202312AC00B80642 /* DGActivityIndicatorBallPulseAnimation.m in Sources */,
+				5533E3AC215B238600D522E3 /* XWSDeviceServerVC.m in Sources */,
 				EFED1AE6208523A600179276 /* MJRefreshConst.m in Sources */,
 				EF45C05F207771300074990E /* ESStatisticViewController.m in Sources */,
 				EF45C0B0207771910074990E /* XAxisFormtter.m in Sources */,
@@ -2015,6 +2026,7 @@
 				EFED1AE1208523A600179276 /* MJRefreshBackStateFooter.m in Sources */,
 				EF1BEAA320BB016100EE52F3 /* XWSFliterResultView.m in Sources */,
 				EE2F2146208CD3E700BB540D /* LMJScrollTextView.m in Sources */,
+				5531840C217DBF26008A3BE7 /* XWSDeviceServerCell.m in Sources */,
 				EFED1AEA208523A600179276 /* UIView+MJExtension.m in Sources */,
 				55156A0F202312AC00B80642 /* DGActivityIndicatorBallScaleRippleMultipleAnimation.m in Sources */,
 				EE47D3CE206CFC1D006FEA3C /* XWSScanInfoViewController.m in Sources */,

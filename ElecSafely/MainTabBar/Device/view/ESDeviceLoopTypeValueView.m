@@ -72,7 +72,7 @@ typedef void(^ClickQueryBtn)(void);
             label.text = @"探测值";
         }
         if (i == 2) {
-            label.text = @"设备值";
+            label.text = @"报警值";
         }
     }
     

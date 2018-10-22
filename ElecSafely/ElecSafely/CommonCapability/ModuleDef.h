@@ -44,6 +44,7 @@
 #define PingFangMedium(x) [UIFont fontWithName:@"PingFangSC-Medium" size:x]
 #define MAS_SHORTHAND //use Masonry without the 'mas_' prefix
 #define MAS_SHORTHAND_GLOBALS //enable auto-boxing for default syntax
+#define CURRENT_VC_BACKCOLOR [UIColor colorWithRed:0.12 green:0.14 blue:0.20 alpha:1.00]
 
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width

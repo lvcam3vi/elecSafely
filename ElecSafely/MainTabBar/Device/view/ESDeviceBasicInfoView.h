@@ -12,6 +12,8 @@
 
 @interface ESDeviceBasicInfoView : UIView
 
-- (void)updateBasicData:(ESDeviceData *)deviceData clickDetailBtn:(void(^)(void))clickDetailBtn;
+- (void)updateBasicData:(ESDeviceData *)deviceData
+         clickDetailBtn:(void(^)(void))clickDetailBtn
+         clickServerBtn:(void(^)(void))clickServerBtn;
 
 @end

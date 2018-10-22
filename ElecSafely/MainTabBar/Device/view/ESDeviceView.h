@@ -15,6 +15,8 @@
 
 /*详情*/
 - (void)clickDeviceViewIntoBaseInfoVC:(ESDeviceView *)deviceView;
+/*服务*/
+- (void)clickDeviceViewServerVC;
 /*复位*/
 - (void)clickDeviceViewResetData:(ESDeviceView *)deviceView;
 /*查询*/

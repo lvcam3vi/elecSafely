@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ESDeviceData.h"
 
 @interface XWSDeviceServerVC : UIViewController
+@property (nonatomic, strong)ESDeviceData *baseInfoData;
 
 @end

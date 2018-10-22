@@ -11,6 +11,7 @@
 #import "ESDeviceData.h"
 #import "ESDeviceDataProcessor.h"
 #import "XWSDeviceBaseInfoVC.h"
+#import "XWSDeviceServerVC.h"
 
 @interface ESDeviceViewController ()<ESDeviceViewDelegate>
 {
@@ -135,6 +136,15 @@
     baseInfoVC.baseInfoData = self.deviceData;
     [self.navigationController pushViewController:baseInfoVC animated:YES];
 }
+
+- (void)clickDeviceViewServerVC {
+    XWSDeviceServerVC *serverVC = [[XWSDeviceServerVC alloc] init];
+    serverVC.baseInfoData = self.deviceData;
+    [self.navigationController pushViewController:serverVC animated:YES];
+}
+
+
+
 
 /*
 #pragma mark - Navigation

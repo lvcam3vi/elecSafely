@@ -80,16 +80,16 @@ typedef void(^IsAlarmBlock)(BOOL isAlarm);
     self.view.backgroundColor = BackColor;
     [self loadData];
     [self initView];
-    
+    [self loadNoticeData];
+    [self loadDeviceAlarms];
+
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //加载公告应该放在这里，这样在切换控制器的时候，可以加载到最新的公告数据
-    [self loadNoticeData];
     [self checkBackImage];
-    [self loadDeviceAlarms];
 }
 
 #pragma mark - 加载数据

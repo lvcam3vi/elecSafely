@@ -15,7 +15,6 @@
 
 //static const CGFloat SectionHeight = 50.f;
 
-#define CURRENT_VC_BACKCOLOR [UIColor colorWithRed:0.12 green:0.14 blue:0.20 alpha:1.00]
 
 @interface XWSDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, XWSFliterViewDelegate, XWSFliterResultViewDelegate>
 {

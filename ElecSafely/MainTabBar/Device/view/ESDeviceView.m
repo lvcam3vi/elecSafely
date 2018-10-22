@@ -63,7 +63,7 @@ static const CGFloat ChartGap = 8;
 
 
 ///基本
-- (void)showBasicInfoView{
+- (void)showBasicInfoView {
     
     _basicInfoView = [[ESDeviceBasicInfoView alloc] initWithFrame:CGRectMake(0, 0, self.width_ES, 140)];
     [self addSubview:_basicInfoView];
@@ -72,6 +72,10 @@ static const CGFloat ChartGap = 8;
     [_basicInfoView updateBasicData:_deviceData clickDetailBtn:^{
         if ([weakSelf.deviceViewDele respondsToSelector:@selector(clickDeviceViewIntoBaseInfoVC:)]) {
             [weakSelf.deviceViewDele clickDeviceViewIntoBaseInfoVC:self];
+        }
+    } clickServerBtn:^{
+        if ([weakSelf.deviceViewDele respondsToSelector:@selector(clickDeviceViewServerVC)]) {
+            [weakSelf.deviceViewDele clickDeviceViewServerVC];
         }
     }];
 }
