@@ -16,7 +16,7 @@
     
     int index = (int)value;
     if ((index%40==0 && index!=0) || index == 10) {
-        date = [NSString stringWithFormat:@"%@", dateArr[index]];
+        date = [NSString stringWithFormat:@"%@", (dateArr.count > index) ? dateArr[index] : @""];
     }
     return date;
 }

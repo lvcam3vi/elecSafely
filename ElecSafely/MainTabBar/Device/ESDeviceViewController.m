@@ -90,6 +90,7 @@
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [self.progressHUD dismiss];
         [self.deviceView loadDataWith:self.deviceData chartData:self.chartData];
+        self.isRequesting = NO;
     });
 }
 
@@ -97,10 +98,16 @@
 //refresh button
 - (void)createRightBarItem{
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(requestDeviceDetailData)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightItemClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
+- (void)rightItemClick{
+    if (!self.isRequesting) {
+        self.isRequesting = YES;
+        [self requestDeviceDetailData];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -109,25 +116,39 @@
 
 #pragma mark - ESDeviceViewDelegate
 - (void)clickDeviceViewQueryData:(ESDeviceView *)deviceView{
-    [self queryDeviceData];
+    if (!self.isRequesting) {
+        [self queryDeviceData];
+    }
 }
 
 - (void)clickDeviceViewResetData:(ESDeviceView *)deviceView{
-    [self resetDeviceData];
+    if (!self.isRequesting) {
+        [self resetDeviceData];
+    }
 }
 
 - (void)resetDeviceData{
     __weak typeof(self) weakSelf = self;
+    self.isRequesting = YES;
     [self.dataProcessor requestDeviceResetDataWithDeviceID:self.deviceID success:^(BOOL success) {
-        [weakSelf requestDeviceDetailData];
+        if (success) {
+            [weakSelf requestDeviceDetailData];
+        }else{
+            weakSelf.isRequesting = NO;
+        }
     }];
 }
 
 
 - (void)queryDeviceData{
     __weak typeof(self) weakSelf = self;
+    self.isRequesting = YES;
     [self.dataProcessor requestDeviceQueryDataWithDeviceID:self.deviceID success:^(BOOL success) {
-        [weakSelf requestDeviceDetailData];
+        if (success) {
+            [weakSelf requestDeviceDetailData];
+        }else{
+            weakSelf.isRequesting = NO;
+        }
     }];
 }
 

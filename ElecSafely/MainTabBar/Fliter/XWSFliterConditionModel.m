@@ -53,7 +53,7 @@ NSString *const KeyAlarmDateScope = @"日期范围";
     }
     
     if ([leftKeyName isEqualToString:KeyAlarmDateScope]) {
-        self.startDate = [self startDateMin];
+        self.startDate = [self aWeekAgo];
         self.endDate = [self endDateMax];
     }
 }
@@ -79,7 +79,17 @@ NSString *const KeyAlarmDateScope = @"日期范围";
     return str;
 }
 
-
+//默认7天前
+- (NSString *)aWeekAgo{
+    
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval startTime = time - 7*24*60*60;
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:startTime];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *str = [formatter stringFromDate:startDate];
+    return str;
+}
 
 @end
 
