@@ -29,6 +29,7 @@ static const CGFloat LeftMargin = 15.0;
 @interface CurveChartView ()<HighLightFormatterDelegate>
 {
     int _yMax;
+    int _once;
     
     NSMutableArray *_bottomLoops;
     NSMutableArray *_valuesArray;
@@ -96,6 +97,7 @@ static const CGFloat LeftMargin = 15.0;
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0.10 green:0.10 blue:0.15 alpha:1.00];
         _yMax = 0;
+        _once = 0;
         
         self.curveView = [[BaseCurveView alloc] initWithFrame:CGRectMake(LeftMargin, TopTextHeight, self.width_ES - 2*LeftMargin, CurveChartH)];
         [self addSubview:self.curveView];
@@ -169,7 +171,7 @@ static const CGFloat LeftMargin = 15.0;
         
         UIColor *color = colorArr[i % colorArr.count];
         
-        NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]]};
+        NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]],@"sortId":@(i)};
         [_bottomLoops addObject:loopNameColor];//底部
         
         NSMutableArray *tempArr = [self tempArray:chartData loopNum:CurrLoop[i]];
@@ -314,7 +316,7 @@ static const CGFloat LeftMargin = 15.0;
 - (void)showOrHideCurve:(UITapGestureRecognizer *)ges{
     UIView *view = ges.view;
     if ((int)view.alpha == 1) {
-        view.alpha = 0.1;
+        view.alpha = 0.2;
         [self hideReplaceDataWithIndex:view.tag - 100];
     }else{
         view.alpha = 1;
@@ -334,6 +336,8 @@ static const CGFloat LeftMargin = 15.0;
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
+    self.tipLabel.attributedText = nil;
+
     [self.curveView refreashDataSourceRestoreContext:self.dataSource];
 }
 
@@ -354,18 +358,29 @@ static const CGFloat LeftMargin = 15.0;
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
+    self.tipLabel.attributedText = nil;
+
     [self.curveView refreashDataSourceRestoreContext:self.dataSource];
 }
 
 
 //HighLightFormatterDelegate  当前高亮点
 - (void)chartCurrentHighLight:(ChartHighlight *)highlight{
-    
+
     if (_bottomLoops.count <= highlight.dataSetIndex) {
         return;
     }
     
-    NSDictionary *dict = _bottomLoops[highlight.dataSetIndex];
+    SLLineChartDataSet *dataSet = _valuesArray2[highlight.dataSetIndex];
+    
+    NSDictionary *dict = nil;
+    for (NSDictionary *dic in _bottomLoops) {
+        if ([dic[@"sortId"] integerValue] == dataSet.sortId) {
+            dict = dic;
+            break;
+        }
+    }
+    
     UIColor *color = dict[@"color"];
     NSString *name = dict[@"name"];
     NSArray *dateArr = _curveChartData[@"dateArr"];
@@ -396,6 +411,13 @@ static const CGFloat LeftMargin = 15.0;
     return _tipLabel;
 }
 
+//假数据不高亮
+- (BOOL)beyond:(NSUInteger)index{
+    _once++;//第一次不高亮画圈
+    self.tipLabel.attributedText = nil;
+    
+    return (index == _valuesArray2.count - 1) || (_valuesArray2.count == 1) || (_once == 1);
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
