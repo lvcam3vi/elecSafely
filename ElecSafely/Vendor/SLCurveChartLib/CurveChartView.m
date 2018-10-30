@@ -32,6 +32,7 @@ static const CGFloat LeftMargin = 15.0;
     
     NSMutableArray *_bottomLoops;
     NSMutableArray *_valuesArray;
+    NSMutableArray *_valuesArray2;
 }
 @property (strong, nonatomic) BaseCurveView *curveView;
 @property (nonatomic, strong) SLLineChartData* dataSource;
@@ -185,20 +186,28 @@ static const CGFloat LeftMargin = 15.0;
         dataSet.drawFilledEnabled = NO;
         dataSet.gradientColors = @[color, [UIColor clearColor]];
         
+        dataSet.sortId = i;//自定义一个排序ID
+        
         [_valuesArray addObject:dataSet];
     }
     
     /*1、有些Y值全部为0，造成无法显示，故虚构一个补充  2、最大Y值可按此方法设置*/
-    if (_yMax == 0) {
+//    if (_yMax == 0) {
         ChartDataEntry* entry = [[ChartDataEntry alloc] initWithX:0 y:4];
         SLLineChartDataSet* dataSet = [[SLLineChartDataSet alloc] initWithValues:[@[entry] mutableCopy] label:@"Default"];
         dataSet.color = [UIColor clearColor];
         dataSet.drawCircleHoleEnabled = NO;
         dataSet.drawCirclesEnabled = NO;
+        dataSet.lineWidth = 0;
+
+        dataSet.sortId = _valuesArray.count;//自定义一个排序ID
+        
         [_valuesArray addObject:dataSet];
-    }
+//    }
     
-    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray];
+    _valuesArray2 = [_valuesArray mutableCopy];
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
@@ -228,7 +237,7 @@ static const CGFloat LeftMargin = 15.0;
     
     [self.curveView setPageScrollerEnable:@(NO)];
     
-        //直接调用Set方法和refreashDataSourceRestoreContext 和该方法等效
+    //直接调用Set方法和refreashDataSourceRestoreContext 和该方法等效
     [self.curveView refreashDataSourceRestoreContext:self.dataSource];
     
     /*底部回路颜色提示和名字*/
@@ -275,6 +284,7 @@ static const CGFloat LeftMargin = 15.0;
     UIView *lastView = nil;
     for (int i = 0; i < loops.count; i++) {
         lastView = [self loopNameAndColor:lastView ? (lastView.right_ES + 10) : xOffset dict:loops[i]];
+        lastView.tag = i + 100;
     }
 }
 
@@ -293,11 +303,68 @@ static const CGFloat LeftMargin = 15.0;
     nameLa.width_ES = nameWidth;
     
     view.width_ES = nameLa.right_ES;
+    
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOrHideCurve:)];
+    [view addGestureRecognizer:tapGes];
+    
     return view;
 }
 
+//选中隐藏标灰色
+- (void)showOrHideCurve:(UITapGestureRecognizer *)ges{
+    UIView *view = ges.view;
+    if ((int)view.alpha == 1) {
+        view.alpha = 0.1;
+        [self hideReplaceDataWithIndex:view.tag - 100];
+    }else{
+        view.alpha = 1;
+        [self showReplaceDataWithIndex:view.tag - 100];
+    }
+}
+
+//替换数据hide某条
+- (void)hideReplaceDataWithIndex:(NSUInteger)index{
+    
+    id obj = [_valuesArray objectAtIndex:index];
+    if ([_valuesArray2 containsObject:obj]) {
+        [_valuesArray2 removeObject:obj];
+    }
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
+    self.dataSource = dataSource;
+    dataSource.graphColor = [UIColor clearColor];
+    
+    [self.curveView refreashDataSourceRestoreContext:self.dataSource];
+}
+
+//替换数据show某条
+- (void)showReplaceDataWithIndex:(NSUInteger)index{
+    
+    id obj = [_valuesArray objectAtIndex:index];
+    if (![_valuesArray2 containsObject:obj]) {
+        [_valuesArray2 addObject:obj];
+        
+        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"sortId" ascending:YES];
+        // 排序结果
+        _valuesArray2 = [[_valuesArray2 sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]] mutableCopy];
+    }
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
+    self.dataSource = dataSource;
+    dataSource.graphColor = [UIColor clearColor];
+    
+    [self.curveView refreashDataSourceRestoreContext:self.dataSource];
+}
+
+
 //HighLightFormatterDelegate  当前高亮点
 - (void)chartCurrentHighLight:(ChartHighlight *)highlight{
+    
+    if (_bottomLoops.count <= highlight.dataSetIndex) {
+        return;
+    }
+    
     NSDictionary *dict = _bottomLoops[highlight.dataSetIndex];
     UIColor *color = dict[@"color"];
     NSString *name = dict[@"name"];

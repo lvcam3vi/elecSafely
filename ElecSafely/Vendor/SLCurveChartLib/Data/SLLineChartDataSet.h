@@ -41,6 +41,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGFloat   circleRadius;
 @property (nonatomic, assign) CGFloat   circleHoleRadius;
 
+@property (nonatomic, assign) NSUInteger sortId;//我自定义
 
 //颜色部分<曲线的颜色，对应点的颜色，以及对应的圈内的颜色， 选中的点颜色>
 @property (nonatomic, strong) UIColor*  color;
