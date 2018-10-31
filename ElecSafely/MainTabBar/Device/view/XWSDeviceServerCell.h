@@ -10,4 +10,8 @@
 
 @interface XWSDeviceServerCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *typeLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *detailLabel;
+
 @end

@@ -12,9 +12,7 @@
 #import "NSString+XWSManager.h"
 #define marginLeft 32.0f
 #define TableViewMarginRightWidth 120.0f
-#define LeftViewTextColor RGBA(170, 170, 170, 1)
 
-#define leftLeftBackColor NavColor
 
 @interface XWSLeftView()<UITableViewDelegate,UITableViewDataSource>
 
