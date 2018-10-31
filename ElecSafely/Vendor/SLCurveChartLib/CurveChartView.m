@@ -29,9 +29,11 @@ static const CGFloat LeftMargin = 15.0;
 @interface CurveChartView ()<HighLightFormatterDelegate>
 {
     int _yMax;
+    int _once;
     
     NSMutableArray *_bottomLoops;
     NSMutableArray *_valuesArray;
+    NSMutableArray *_valuesArray2;
 }
 @property (strong, nonatomic) BaseCurveView *curveView;
 @property (nonatomic, strong) SLLineChartData* dataSource;
@@ -95,6 +97,7 @@ static const CGFloat LeftMargin = 15.0;
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0.10 green:0.10 blue:0.15 alpha:1.00];
         _yMax = 0;
+        _once = 0;
         
         self.curveView = [[BaseCurveView alloc] initWithFrame:CGRectMake(LeftMargin, TopTextHeight, self.width_ES - 2*LeftMargin, CurveChartH)];
         [self addSubview:self.curveView];
@@ -168,7 +171,7 @@ static const CGFloat LeftMargin = 15.0;
         
         UIColor *color = colorArr[i % colorArr.count];
         
-        NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]]};
+        NSDictionary *loopNameColor = @{@"color":color,@"name":[NSString stringWithFormat:@"%@%@",chartData[@"Name"], CurrLoop[i]],@"sortId":@(i)};
         [_bottomLoops addObject:loopNameColor];//底部
         
         NSMutableArray *tempArr = [self tempArray:chartData loopNum:CurrLoop[i]];
@@ -185,20 +188,28 @@ static const CGFloat LeftMargin = 15.0;
         dataSet.drawFilledEnabled = NO;
         dataSet.gradientColors = @[color, [UIColor clearColor]];
         
+        dataSet.sortId = i;//自定义一个排序ID
+        
         [_valuesArray addObject:dataSet];
     }
     
     /*1、有些Y值全部为0，造成无法显示，故虚构一个补充  2、最大Y值可按此方法设置*/
-    if (_yMax == 0) {
+//    if (_yMax == 0) {
         ChartDataEntry* entry = [[ChartDataEntry alloc] initWithX:0 y:4];
         SLLineChartDataSet* dataSet = [[SLLineChartDataSet alloc] initWithValues:[@[entry] mutableCopy] label:@"Default"];
         dataSet.color = [UIColor clearColor];
         dataSet.drawCircleHoleEnabled = NO;
         dataSet.drawCirclesEnabled = NO;
+        dataSet.lineWidth = 0;
+
+        dataSet.sortId = _valuesArray.count;//自定义一个排序ID
+        
         [_valuesArray addObject:dataSet];
-    }
+//    }
     
-    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray];
+    _valuesArray2 = [_valuesArray mutableCopy];
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
     self.dataSource = dataSource;
     dataSource.graphColor = [UIColor clearColor];
     
@@ -228,7 +239,7 @@ static const CGFloat LeftMargin = 15.0;
     
     [self.curveView setPageScrollerEnable:@(NO)];
     
-        //直接调用Set方法和refreashDataSourceRestoreContext 和该方法等效
+    //直接调用Set方法和refreashDataSourceRestoreContext 和该方法等效
     [self.curveView refreashDataSourceRestoreContext:self.dataSource];
     
     /*底部回路颜色提示和名字*/
@@ -275,6 +286,7 @@ static const CGFloat LeftMargin = 15.0;
     UIView *lastView = nil;
     for (int i = 0; i < loops.count; i++) {
         lastView = [self loopNameAndColor:lastView ? (lastView.right_ES + 10) : xOffset dict:loops[i]];
+        lastView.tag = i + 100;
     }
 }
 
@@ -293,12 +305,82 @@ static const CGFloat LeftMargin = 15.0;
     nameLa.width_ES = nameWidth;
     
     view.width_ES = nameLa.right_ES;
+    
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOrHideCurve:)];
+    [view addGestureRecognizer:tapGes];
+    
     return view;
 }
 
+//选中隐藏标灰色
+- (void)showOrHideCurve:(UITapGestureRecognizer *)ges{
+    UIView *view = ges.view;
+    if ((int)view.alpha == 1) {
+        view.alpha = 0.2;
+        [self hideReplaceDataWithIndex:view.tag - 100];
+    }else{
+        view.alpha = 1;
+        [self showReplaceDataWithIndex:view.tag - 100];
+    }
+}
+
+//替换数据hide某条
+- (void)hideReplaceDataWithIndex:(NSUInteger)index{
+    
+    id obj = [_valuesArray objectAtIndex:index];
+    if ([_valuesArray2 containsObject:obj]) {
+        [_valuesArray2 removeObject:obj];
+    }
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
+    self.dataSource = dataSource;
+    dataSource.graphColor = [UIColor clearColor];
+    
+    self.tipLabel.attributedText = nil;
+
+    [self.curveView refreashDataSourceRestoreContext:self.dataSource];
+}
+
+//替换数据show某条
+- (void)showReplaceDataWithIndex:(NSUInteger)index{
+    
+    id obj = [_valuesArray objectAtIndex:index];
+    if (![_valuesArray2 containsObject:obj]) {
+        [_valuesArray2 addObject:obj];
+        
+        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"sortId" ascending:YES];
+        // 排序结果
+        _valuesArray2 = [[_valuesArray2 sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]] mutableCopy];
+    }
+    
+    SLLineChartData* dataSource = [[SLLineChartData alloc] initWithValues:_valuesArray2];
+    self.dataSource = dataSource;
+    dataSource.graphColor = [UIColor clearColor];
+    
+    self.tipLabel.attributedText = nil;
+
+    [self.curveView refreashDataSourceRestoreContext:self.dataSource];
+}
+
+
 //HighLightFormatterDelegate  当前高亮点
 - (void)chartCurrentHighLight:(ChartHighlight *)highlight{
-    NSDictionary *dict = _bottomLoops[highlight.dataSetIndex];
+
+    if (_bottomLoops.count <= highlight.dataSetIndex) {
+        return;
+    }
+    
+    SLLineChartDataSet *dataSet = _valuesArray2[highlight.dataSetIndex];
+    
+    NSDictionary *dict = nil;
+    for (NSDictionary *dic in _bottomLoops) {
+        if ([dic[@"sortId"] integerValue] == dataSet.sortId) {
+            dict = dic;
+            break;
+        }
+    }
+    
     UIColor *color = dict[@"color"];
     NSString *name = dict[@"name"];
     NSArray *dateArr = _curveChartData[@"dateArr"];
@@ -329,6 +411,13 @@ static const CGFloat LeftMargin = 15.0;
     return _tipLabel;
 }
 
+//假数据不高亮
+- (BOOL)beyond:(NSUInteger)index{
+    _once++;//第一次不高亮画圈
+    self.tipLabel.attributedText = nil;
+    
+    return (index == _valuesArray2.count - 1) || (_valuesArray2.count == 1) || (_once == 1);
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -12,6 +12,7 @@
 @protocol HighLightFormatterDelegate <NSObject>
 @optional
 - (void)chartCurrentHighLight:(ChartHighlight *) highlight;//当前高亮点
+- (BOOL)beyond:(NSUInteger)index;
 
 @end
 

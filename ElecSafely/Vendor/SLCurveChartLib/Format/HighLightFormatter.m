@@ -11,6 +11,14 @@
 @implementation HighLightFormatter
 #pragma mark - ChartHighlightDelegate
 -(void) chartHighlight:(ChartHighlight *) highlight context:(CGContextRef) context bounds:(CGRect) rect edageInsets:(UIEdgeInsets) edageInsets{
+    
+    if ([self.delegate respondsToSelector:@selector(beyond:)]) {
+        BOOL beyond = [self.delegate beyond:highlight.dataSetIndex];
+        if (beyond) {
+            return;
+        }
+    }
+    
     CGContextSaveGState(context);
     CGFloat viewH = rect.size.height;
     CGFloat ybottom = edageInsets.bottom;
