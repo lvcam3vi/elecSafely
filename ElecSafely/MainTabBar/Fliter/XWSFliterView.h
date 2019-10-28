@@ -16,7 +16,7 @@
 
 @protocol XWSFliterViewDelegate <NSObject>
 - (void)clickFliterView:(XWSFliterView *)fliterView dataSource:(NSDictionary *)dataSource;
-
+@property (nonatomic, strong) NSArray *arr;
 @optional
 - (void)showHudView;
 

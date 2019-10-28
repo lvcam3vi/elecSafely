@@ -74,7 +74,9 @@
     return self;
 }
 #pragma mark - 懒加载
-
+- (void)drawRect:(CGRect)rect {
+    
+}
 - (UIView *)NoDataView{
     if (!_NoDataView) {
         _NoDataView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -667,6 +669,7 @@
     
     if ([self.delegate respondsToSelector:@selector(clickFliterView:dataSource:)]) {
         [self.delegate clickFliterView:self dataSource:devices];
+        self.delegate.arr = @[@1];
     }
 }
 
