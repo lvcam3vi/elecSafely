@@ -43,7 +43,7 @@ static NSArray *rippleAnimationKeyTimes = nil;
     CAMediaTimingFunction *easeInOutTimingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     NSValue *zeroPointValue = [NSValue valueWithCGPoint:CGPointZero];
     
-    NSMutableArray<CAAnimation *> *animations = [NSMutableArray array];
+    NSMutableArray<CAAnimation *> *anima`tio`ns = [NSMutableArray array];
     if (_shouldEnableRipple)
     {
         // Transform.scale
